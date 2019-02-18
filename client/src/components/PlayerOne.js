@@ -2,7 +2,17 @@ import React, { PureComponent } from "react";
 import { Circle } from "react-konva";
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 
-const keys = [];
+const keys = [],
+    MIN_X = 52,
+    MIN_Y = 52,
+    MAX_X = WIDTH - MIN_X,
+    MAX_Y = HEIGHT - MIN_Y,
+    boardCenterX = WIDTH / 2,
+    // boardCenterY = HEIGHT / 2,
+    puckSize = 50;
+let controllerOne;
+
+
 
 export default class PlayerOne extends PureComponent {
     state = {
@@ -19,7 +29,7 @@ export default class PlayerOne extends PureComponent {
         //do we need this?
         // ? event.keyCode : event.which;
 
-         // up, w = 87
+        // up, w = 87
         if (keys[38]) {
             this.setState({ positionY: this.state.positionY - 10 })
         }
@@ -46,13 +56,23 @@ export default class PlayerOne extends PureComponent {
     componentWillMount() {
         window.addEventListener('keydown', this.keysPressed.bind(this), false)
         window.addEventListener('keyup', this.keysReleased.bind(this), false)
+    }
+
+    keepPlayerInsideField() {
+        // X-axis borders
+        if (this.state.positionX > (boardCenterX - puckSize)) {
+            this.state.positionX = boardCenterX - puckSize
+        }
+        if (this.state.positionX < (0 + puckSize)){
+            this.state.positionX = 0 + puckSize
+        }
 
     }
 
     render() {
 
+        this.keepPlayerInsideField()
         return (
-
 
             <Circle
                 ref={comp => {
@@ -60,7 +80,7 @@ export default class PlayerOne extends PureComponent {
                 }}
                 x={this.state.positionX}
                 y={this.state.positionY}
-                radius={50}
+                radius={puckSize}
                 fill={'blue'}
                 stroke={'black'}
                 strokeWidth={3}
