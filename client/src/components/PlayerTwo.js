@@ -8,7 +8,6 @@ const MIN_X = 52,
 
 export default class PlayerTwo extends PureComponent {
     state = {
-        color: 'red',
         x: MIN_X,
         y: MIN_Y,
         direction: { x: 0, y: 0 }
@@ -21,7 +20,6 @@ export default class PlayerTwo extends PureComponent {
     }
 
     render() {
-        const { color } = this.state;
 
         return (
             <Circle
@@ -31,7 +29,7 @@ export default class PlayerTwo extends PureComponent {
                 x={WIDTH / 1.2}
                 y={HEIGHT / 2 }
                 radius={50}
-                fill={color}
+                fill={'red'}
                 stroke={'black'}
                 strokeWidth={3}
                 // shadowBlur={10}
