@@ -2,11 +2,11 @@ import React, { PureComponent } from "react";
 import { Circle } from "react-konva";
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 
-const MIN_X = 32,
-    MIN_Y = 32,
+const MIN_X = 52,
+    MIN_Y = 52,
     SPEED = 29;
 
-export default class Puck extends PureComponent {
+export default class PlayerTwo extends PureComponent {
     state = {
         color: 'black',
         x: MIN_X,
@@ -29,8 +29,8 @@ export default class Puck extends PureComponent {
                     this.ball = comp;
                 }}
                 x={WIDTH / 2}
-                y={HEIGHT / 2}
-                radius={30}
+                y={HEIGHT / 1.2 }
+                radius={50}
                 fill={color}
                 shadowBlur={10}
             />
