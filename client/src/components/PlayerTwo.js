@@ -1,40 +1,17 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { Circle } from "react-konva";
-import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 
-const MIN_X = 52,
-    MIN_Y = 52,
-    SPEED = 29;
+const puckSize = 50;
 
-export default class PlayerTwo extends PureComponent {
-    state = {
-        x: MIN_X,
-        y: MIN_Y,
-        direction: { x: 0, y: 0 }
-    };
+export default function PlayerTwo(props) {
+    const {x, y} = props
 
-    componentDidMount() {
-        const x = Math.floor(Math.random() * SPEED);
-        const y = SPEED - x;
-        this.setState({ direction: { x, y } });
-    }
-
-    render() {
-
-        return (
-            <Circle
-                ref={comp => {
-                    this.ball = comp;
-                }}
-                x={WIDTH / 1.2}
-                y={HEIGHT / 2 }
-                radius={50}
-                fill={'red'}
-                stroke={'black'}
-                strokeWidth={3}
-                // shadowBlur={10}
-            />
-        );
-    }
-
+    return (<Circle
+        x={x}
+        y={y}
+        radius={puckSize}
+        fill={'red'}
+        stroke={'black'}
+        strokeWidth={3}
+    />)
 }
