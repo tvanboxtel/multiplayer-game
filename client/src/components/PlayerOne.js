@@ -8,7 +8,6 @@ const MIN_X = 52,
 
 export default class PlayerOne extends PureComponent {
     state = {
-        color: 'blue',
         x: MIN_X,
         y: MIN_Y,
         direction: { x: 0, y: 0 }
@@ -20,10 +19,12 @@ export default class PlayerOne extends PureComponent {
         this.setState({ direction: { x, y } });
     }
 
+
     render() {
-        const { color } = this.state;
 
         return (
+
+            
             <Circle
                 ref={comp => {
                     this.ball = comp;
@@ -31,7 +32,7 @@ export default class PlayerOne extends PureComponent {
                 x={WIDTH / 5}
                 y={HEIGHT / 2}
                 radius={50}
-                fill={color}
+                fill={'blue'}
                 stroke={'black'}
                 strokeWidth={3}
                 // shadowBlur={}
