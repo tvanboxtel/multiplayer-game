@@ -2,23 +2,28 @@ import React, { PureComponent } from "react";
 import { Circle } from "react-konva";
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 
-const MIN_X = 52,
-    MIN_Y = 52,
-    SPEED = 29;
-
 export default class PlayerOne extends PureComponent {
     state = {
-        x: MIN_X,
-        y: MIN_Y,
-        direction: { x: 0, y: 0 }
+        positionX: WIDTH / 5,
+        positionY: HEIGHT / 2
     };
 
-    componentDidMount() {
-        const x = Math.floor(Math.random() * SPEED);
-        const y = SPEED - x;
-        this.setState({ direction: { x, y } });
+
+
+
+    handleKeyboardInput = (event) => {
+        const code = event.keyCode ? event.keyCode : event.which;
+
+        if (code === 38) { // up
+            this.setState({positionY: this.state.positionY - 1})
+            // this.setState({direction: {y: -1}});
+            // this.setState({message: console.log('hi!')})
+        }
     }
 
+    componentWillMount() {
+        window.addEventListener('keydown', this.handleKeyboardInput.bind(this))
+    }
 
     render() {
 
@@ -29,8 +34,8 @@ export default class PlayerOne extends PureComponent {
                 ref={comp => {
                     this.ball = comp;
                 }}
-                x={WIDTH / 5}
-                y={HEIGHT / 2}
+                x={this.state.positionX}
+                y={this.state.positionY}
                 radius={50}
                 fill={'blue'}
                 stroke={'black'}
