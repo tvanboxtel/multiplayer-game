@@ -28,8 +28,8 @@ export default class PlayerOne extends PureComponent {
                 ref={comp => {
                     this.ball = comp;
                 }}
-                x={WIDTH / 2}
-                y={HEIGHT / 5}
+                x={WIDTH / 5}
+                y={HEIGHT / 2}
                 radius={50}
                 fill={color}
                 stroke={'black'}

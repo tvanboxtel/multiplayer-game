@@ -1,8 +1,8 @@
 import React, { PureComponent } from "react";
 import { Group, Rect } from "react-konva";
 
-export const WIDTH = 500;
-export const HEIGHT = 750;
+export const WIDTH = 750;
+export const HEIGHT = 500;
 
 export default class PlayingFieldContainer extends PureComponent {
   render() {
