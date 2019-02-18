@@ -8,7 +8,7 @@ const MIN_X = 52,
 
 export default class PlayerTwo extends PureComponent {
     state = {
-        color: 'black',
+        color: 'red',
         x: MIN_X,
         y: MIN_Y,
         direction: { x: 0, y: 0 }
@@ -32,7 +32,9 @@ export default class PlayerTwo extends PureComponent {
                 y={HEIGHT / 1.2 }
                 radius={50}
                 fill={color}
-                shadowBlur={10}
+                stroke={'black'}
+                strokeWidth={3}
+                // shadowBlur={10}
             />
         );
     }
