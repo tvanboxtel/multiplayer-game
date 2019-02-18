@@ -14,8 +14,6 @@ export default class PlayerOneContainer extends PureComponent {
         positionY: HEIGHT / 2
     };
 
-
-
     keysPressed = (event) => {
         keys[event.keyCode] = true
         // up, w = 87
@@ -41,10 +39,10 @@ export default class PlayerOneContainer extends PureComponent {
     keysReleased = (event) => {
         keys[event.keyCode] = false;
     }
-
-    componentWillMount() {
-        window.addEventListener('keydown', this.keysPressed.bind(this), false)
-        window.addEventListener('keyup', this.keysReleased.bind(this), false)
+    // used to be ComponentWillMount
+    componentDidMount() {
+        window.addEventListener('keydown', this.keysPressed)
+        window.addEventListener('keyup', this.keysReleased)
     }
 
     keepPlayerInsideField  = ()  => {
@@ -59,9 +57,7 @@ export default class PlayerOneContainer extends PureComponent {
                 positionX : 0 + puckSize
             })
         }
-
         // Y-axis borders
-
         if (this.state.positionY > MAX_Y) {
             this.setState({
                 positionY: MAX_Y
@@ -77,8 +73,7 @@ export default class PlayerOneContainer extends PureComponent {
     componentDidUpdate() {
         this.keepPlayerInsideField()
     }
-    render() {
-      
+    render() {      
         return (
             <PlayerOne x={this.state.positionX} y={this.state.positionY}/>
         );
