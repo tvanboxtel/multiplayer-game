@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import PlayingFieldContainer from './components/PlayingFieldContainer'
+import Puck from './components/PuckContainer'
 import { Stage, Layer } from "react-konva";
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
           <Stage width={window.innerWidth} height={window.innerHeight}>
             <Layer>
               <PlayingFieldContainer />
+              <Puck />
             </Layer>
           </Stage>
         </header>
