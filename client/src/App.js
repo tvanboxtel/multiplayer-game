@@ -13,7 +13,7 @@ class App extends Component {
         <header className="App-header">
           <Stage width={window.innerWidth} height={window.innerHeight}>
             <Layer>
-              <PlayingFieldContainer />
+              <PlayingFieldContainer className="Playing-field"/>
               <Puck />
               <PlayerOne />
               <PlayerTwo />
