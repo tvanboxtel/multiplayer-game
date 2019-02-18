@@ -1,8 +1,9 @@
 import React, { PureComponent } from "react";
 import { Group, Rect } from "react-konva";
 
-export const WIDTH = 750;
-export const HEIGHT = 500;
+// does not resize on window size change
+export const WIDTH = window.innerWidth / 2;
+export const HEIGHT = window.innerHeight / 2;
 
 export default class PlayingFieldContainer extends PureComponent {
   render() {

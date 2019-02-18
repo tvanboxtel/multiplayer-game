@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Stage width={window.innerWidth} height={window.innerHeight}>
+          <Stage width={window.innerWidth / 2} height={window.innerHeight / 2}>
             <Layer>
               <PlayingFieldContainer className="Playing-field"/>
               <Puck />
