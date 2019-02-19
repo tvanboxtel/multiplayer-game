@@ -5,12 +5,13 @@ import { Circle } from "react-konva";
 const keys = [],
     MIN_Y = 52,
     MAX_Y = HEIGHT - MIN_Y,
+    MAX_X = WIDTH,
     boardCenterX = WIDTH / 2,
     puckSize = 52;
 
-export default class PlayerOneContainer extends PureComponent {
+export default class PlayerTwoContainer extends PureComponent {
     state = {
-        positionX: WIDTH / 5,
+        positionX: WIDTH / 1.25,
         positionY: HEIGHT / 2,
         x: WIDTH / 5,
         y: HEIGHT / 2,
@@ -38,7 +39,7 @@ export default class PlayerOneContainer extends PureComponent {
         }
 
         // Up
-        if (keys[87]) {
+        if (keys[38]) {
             if (this.state.positionY > 0 + puckSize) {
                 this.setState({ velocityY: this.state.velocityY - this.state.acceleration })
                 move()
@@ -48,7 +49,7 @@ export default class PlayerOneContainer extends PureComponent {
         }
 
         // // Down
-        if (keys[83]) {
+        if (keys[40]) {
             if (this.state.positionY < MAX_Y) {
                 this.setState({ velocityY: this.state.velocityY + this.state.acceleration })
                 move()
@@ -58,8 +59,8 @@ export default class PlayerOneContainer extends PureComponent {
         }
 
         // Right
-        if (keys[68]) {
-            if (this.state.positionX < boardCenterX - puckSize) {
+        if (keys[39]) {
+            if (this.state.positionX < WIDTH - puckSize) {
                 this.setState({ velocityX: this.state.velocityX + this.state.acceleration })
                 move()
             } else {
@@ -68,8 +69,8 @@ export default class PlayerOneContainer extends PureComponent {
         }
 
         // Left, decrease acceleration
-        if (keys[65]) {
-            if (this.state.positionX > 0 + puckSize) {
+        if (keys[37]) {
+            if (this.state.positionX > boardCenterX + puckSize) {
                 this.setState({ velocityX: this.state.velocityX - this.state.acceleration })
                 move()
             } else {
@@ -89,27 +90,27 @@ export default class PlayerOneContainer extends PureComponent {
         window.addEventListener('keyup', this.keysReleased)
     }
 
-    keepPlayerInsideField = () => {
+    keepPlayerInsideField  = ()  => {
         // X-axis borders
-        if (this.state.positionX > (boardCenterX - puckSize)) {
+        if (this.state.positionX < (boardCenterX + puckSize)) {
             this.setState({
-                positionX: boardCenterX - puckSize,
+                positionX: boardCenterX + puckSize
             })
         }
-        if (this.state.positionX < (0 + puckSize)) {
+        if (this.state.positionX > (MAX_X - puckSize)) {
             this.setState({
-                positionX: 0 + puckSize,
+                positionX : MAX_X - puckSize
             })
         }
         // Y-axis borders
         if (this.state.positionY > MAX_Y) {
             this.setState({
-                positionY: MAX_Y,
+                positionY: MAX_Y
             })
         }
         if (this.state.positionY < (0 + puckSize)) {
             this.setState({
-                positionY: 0 + puckSize,
+                positionY : 0 + puckSize
             })
         }
     }
@@ -124,7 +125,7 @@ export default class PlayerOneContainer extends PureComponent {
                 x={this.state.positionX}
                 y={this.state.positionY}
                 radius={puckSize}
-                fill={'blue'}
+                fill={'red'}
                 stroke={'black'}
                 strokeWidth={3}
                 mass={this.state.mass}
