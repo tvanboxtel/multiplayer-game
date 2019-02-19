@@ -37,6 +37,34 @@ export default class Puck extends PureComponent {
         this.move()
     }
 
+    keepPuckInsideField  = ()  => {
+
+        // puck does not slow down upon collision.
+        // If desired, add slow down multiplier to:
+        // -this.state.${velocityDirection} * ${brakeFactor}
+        // X-axis borders
+
+        if (this.state.positionX > (MAX_X - puckSize)) {
+            this.setState({
+                positionX : MAX_X - puckSize,
+                velocityX: -this.state.velocityX  
+            })
+        }
+        // Y-axis borders
+        if (this.state.positionY > MAX_Y) {
+            this.setState({
+                positionY: MAX_Y,
+                velocityY: -this.state.velocityY
+            })
+        }
+        if (this.state.positionY < (0 + puckSize)) {
+            this.setState({
+                positionY : 0 + puckSize,
+                velocityY: -this.state.velocityY
+            })
+        }
+    }
+
     render() {
         return (
             <Circle
