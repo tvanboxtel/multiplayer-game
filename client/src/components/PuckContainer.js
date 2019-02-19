@@ -4,7 +4,9 @@ import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 
 const puckSize = 25,
     initialX = WIDTH / 2,
-    initialY = HEIGHT / 2
+    initialY = HEIGHT / 2,
+    MAX_X = WIDTH,
+    MAX_Y = HEIGHT
 
 
 export default class Puck extends PureComponent {
