@@ -1,14 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-const routing_controllers_1 = require("routing-controllers");
 const db_1 = require("./db");
+const routing_controllers_1 = require("routing-controllers");
+const Koa = require("koa");
+const http_1 = require("http");
+const IO = require("socket.io");
+const app = new Koa();
+const server = new http_1.Server(app.callback());
+exports.io = IO(server);
 const port = process.env.PORT || 4000;
-const app = routing_controllers_1.createKoaServer({
+routing_controllers_1.useKoaServer(app, {
     cors: true,
     controllers: [],
 });
+exports.io.on('connection', function (socket) {
+    console.log(`User ${socket.id} just connected`);
+    exports.io.emit('chat', 'Test Message');
+    socket.on('disconnect', () => {
+        console.log(`User ${socket.id} just disconnected`);
+    });
+});
 db_1.default()
-    .then(_ => app.listen(port, () => console.log(`Listening on port ${port}`)))
+    .then(_ => server.listen(port, () => console.log(`Listening on server port ${port}`)))
     .catch(err => console.error(err));
 //# sourceMappingURL=index.js.map
