@@ -12,8 +12,6 @@ export default class PlayerOneContainer extends PureComponent {
     state = {
         positionX: WIDTH / 5,
         positionY: HEIGHT / 2,
-        x: WIDTH / 5,
-        y: HEIGHT / 2,
         mass: 15,
         velocityX: 0,
         velocityY: 0,
@@ -97,25 +95,30 @@ export default class PlayerOneContainer extends PureComponent {
     
     keepPlayerInsideField = () => {
         // X-axis borders
-        if (this.state.positionX > (boardCenterX - puckSize)) {
+        if (this.state.positionX > (boardCenterX - puckSize)) {    
             this.setState({
                 positionX: boardCenterX - puckSize,
+                velocityX: -this.state.velocityX * 0.75
             })
         }
+
         if (this.state.positionX < (0 + puckSize)) {
             this.setState({
                 positionX: 0 + puckSize,
+                velocityX: -this.state.velocityX * 0.75
             })
         }
         // Y-axis borders
         if (this.state.positionY > MAX_Y) {
             this.setState({
                 positionY: MAX_Y,
+                velocityY: -this.state.velocityY * 0.75
             })
         }
         if (this.state.positionY < (0 + puckSize)) {
             this.setState({
                 positionY: 0 + puckSize,
+                velocityY: -this.state.velocityY * 0.75
             })
         }
     }
