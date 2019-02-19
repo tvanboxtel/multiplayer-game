@@ -26,5 +26,12 @@ function checkCollision(Player, Puck) {
         // their combined radius, they have collided!
         if (distance < addedRadius){
             console.log('We have collided!')
+
+            // all collision logic goes here
+
+            // we create a sine and cosine
+            const angle = Math.atan2(distanceY, distanceX),
+                sin = Math.sin(angle),
+                cos = Math.cos(angle),
         }
     }
