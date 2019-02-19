@@ -3,7 +3,7 @@ import './App.css';
 import PlayingFieldContainer from './components/PlayingFieldContainer'
 import Puck from './components/PuckContainer'
 import PlayerOneContainer from './components/PlayerOneContainer'
-import PlayerTwo from './components/PlayerTwo'
+import PlayerTwoContainer from './components/PlayerTwoContainer'
 import { Stage, Layer } from "react-konva";
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
               <PlayingFieldContainer className="Playing-field"/>
               <Puck />
               <PlayerOneContainer />
-              <PlayerTwo />
+              <PlayerTwoContainer />
             </Layer>
           </Stage>
         </header>
