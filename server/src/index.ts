@@ -29,10 +29,6 @@ io.on('connection', function(socket) {
     })
 })
 
-// io.emit('test', socket => {
-//     socket.emit(console.log('test'))
-// })
-
 setupDb()
     .then(_ =>
         server.listen(port, () => console.log(`Listening on server port ${port}`))

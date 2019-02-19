@@ -5,7 +5,9 @@ import Puck from './components/PuckContainer'
 import PlayerOneContainer from './components/PlayerOneContainer'
 import PlayerTwoContainer from './components/PlayerTwoContainer'
 import { Stage, Layer } from "react-konva";
-import { connect } from './socketio'
+import openSocket from 'socket.io-client'
+const port = process.env.PORT || 'http://localhost:4000'
+openSocket(port)
 
 class App extends Component {
 
