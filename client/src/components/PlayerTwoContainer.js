@@ -13,8 +13,9 @@ export default class PlayerTwoContainer extends PureComponent {
     state = {
         positionX: WIDTH / 1.25,
         positionY: HEIGHT / 2,
-        x: WIDTH / 5,
-        y: HEIGHT / 2,
+        // redundant?
+        // x: WIDTH / 5,
+        // y: HEIGHT / 2,
         mass: 15,
         velocityX: 0,
         velocityY: 0,
@@ -98,23 +99,31 @@ export default class PlayerTwoContainer extends PureComponent {
         // X-axis borders
         if (this.state.positionX < (boardCenterX + puckSize)) {
             this.setState({
-                positionX: boardCenterX + puckSize
+                positionX: boardCenterX + puckSize,
+                velocityX: -this.state.velocityX * 0.75
+
             })
         }
         if (this.state.positionX > (MAX_X - puckSize)) {
             this.setState({
-                positionX : MAX_X - puckSize
+                positionX : MAX_X - puckSize,
+                velocityX: -this.state.velocityX * 0.75
+
             })
         }
         // Y-axis borders
         if (this.state.positionY > MAX_Y) {
             this.setState({
-                positionY: MAX_Y
+                positionY: MAX_Y,
+                velocityY: -this.state.velocityY * 0.75
+
             })
         }
         if (this.state.positionY < (0 + puckSize)) {
             this.setState({
-                positionY : 0 + puckSize
+                positionY : 0 + puckSize,
+                velocityY: -this.state.velocityY * 0.75
+
             })
         }
     }
