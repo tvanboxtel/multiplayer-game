@@ -23,26 +23,25 @@ export default class PlayerTwoContainer extends PureComponent {
         acceleration: 1
     };
 
+    move = () => {
+
+        this.setState({ velocityX: this.state.velocityX * this.state.frictionX })
+        this.setState({ velocityY: this.state.velocityY * this.state.frictionY })
+
+
+        this.setState({ positionX: this.state.positionX + this.state.velocityX })
+        this.setState({ positionY: this.state.positionY + this.state.velocityY })
+    }
+
     moveController = (event) => {
 
         keys[event.keyCode] = true
-
-
-        const move = () => {
-
-            this.setState({ velocityX: this.state.velocityX * this.state.frictionX })
-            this.setState({ velocityY: this.state.velocityY * this.state.frictionY })
-
-
-            this.setState({ positionX: this.state.positionX + this.state.velocityX })
-            this.setState({ positionY: this.state.positionY + this.state.velocityY })
-        }
 
         // Up
         if (keys[38]) {
             if (this.state.positionY > 0 + puckSize) {
                 this.setState({ velocityY: this.state.velocityY - this.state.acceleration })
-                move()
+                this.move()
             } else {
                 this.setState({ velocityY: 0, velocityX: 0 })
             }
@@ -52,7 +51,7 @@ export default class PlayerTwoContainer extends PureComponent {
         if (keys[40]) {
             if (this.state.positionY < MAX_Y) {
                 this.setState({ velocityY: this.state.velocityY + this.state.acceleration })
-                move()
+                this.move()
             } else {
                 this.setState({ velocityY: 0, velocityX: 0 })
             }
@@ -62,7 +61,7 @@ export default class PlayerTwoContainer extends PureComponent {
         if (keys[39]) {
             if (this.state.positionX < WIDTH - puckSize) {
                 this.setState({ velocityX: this.state.velocityX + this.state.acceleration })
-                move()
+                this.move()
             } else {
                 this.setState({ velocityX: 0, velocityY: 0 })
             }
@@ -72,7 +71,7 @@ export default class PlayerTwoContainer extends PureComponent {
         if (keys[37]) {
             if (this.state.positionX > boardCenterX + puckSize) {
                 this.setState({ velocityX: this.state.velocityX - this.state.acceleration })
-                move()
+                this.move()
             } else {
                 this.setState({ velocityX: 0, velocityY: 0 })
             }
@@ -88,7 +87,12 @@ export default class PlayerTwoContainer extends PureComponent {
     componentDidMount() {
         window.addEventListener('keydown', this.moveController)
         window.addEventListener('keyup', this.keysReleased)
+        this.animate()
     }
+        animate = () => {
+            requestAnimationFrame(this.animate)
+            this.move()
+        }
 
     keepPlayerInsideField  = ()  => {
         // X-axis borders
