@@ -12,8 +12,6 @@ export default class PlayerOneContainer extends PureComponent {
     state = {
         positionX: WIDTH / 5,
         positionY: HEIGHT / 2,
-        x: WIDTH / 5,
-        y: HEIGHT / 2,
         mass: 15,
         velocityX: 0,
         velocityY: 0,
@@ -22,26 +20,25 @@ export default class PlayerOneContainer extends PureComponent {
         acceleration: 1
     };
 
+     move = () => {
+
+        this.setState({ velocityX: this.state.velocityX * this.state.frictionX })
+        this.setState({ velocityY: this.state.velocityY * this.state.frictionY })
+
+
+        this.setState({ positionX: this.state.positionX + this.state.velocityX })
+        this.setState({ positionY: this.state.positionY + this.state.velocityY })
+    }
+
     moveController = (event) => {
 
         keys[event.keyCode] = true
-
-
-        const move = () => {
-
-            this.setState({ velocityX: this.state.velocityX * this.state.frictionX })
-            this.setState({ velocityY: this.state.velocityY * this.state.frictionY })
-
-
-            this.setState({ positionX: this.state.positionX + this.state.velocityX })
-            this.setState({ positionY: this.state.positionY + this.state.velocityY })
-        }
 
         // Up
         if (keys[87]) {
             if (this.state.positionY > 0 + puckSize) {
                 this.setState({ velocityY: this.state.velocityY - this.state.acceleration })
-                move()
+                this.move()
             } else {
                 this.setState({ velocityY: 0, velocityX: 0 })
             }
@@ -51,7 +48,7 @@ export default class PlayerOneContainer extends PureComponent {
         if (keys[83]) {
             if (this.state.positionY < MAX_Y) {
                 this.setState({ velocityY: this.state.velocityY + this.state.acceleration })
-                move()
+                this.move()
             } else {
                 this.setState({ velocityY: 0, velocityX: 0 })
             }
@@ -61,7 +58,7 @@ export default class PlayerOneContainer extends PureComponent {
         if (keys[68]) {
             if (this.state.positionX < boardCenterX - puckSize) {
                 this.setState({ velocityX: this.state.velocityX + this.state.acceleration })
-                move()
+                this.move()
             } else {
                 this.setState({ velocityX: 0, velocityY: 0 })
             }
@@ -71,7 +68,7 @@ export default class PlayerOneContainer extends PureComponent {
         if (keys[65]) {
             if (this.state.positionX > 0 + puckSize) {
                 this.setState({ velocityX: this.state.velocityX - this.state.acceleration })
-                move()
+                this.move()
             } else {
                 this.setState({ velocityX: 0, velocityY: 0 })
             }
@@ -83,33 +80,45 @@ export default class PlayerOneContainer extends PureComponent {
     keysReleased = (event) => {
         keys[event.keyCode] = false;
     }
+
     // used to be ComponentWillMount
     componentDidMount() {
         window.addEventListener('keydown', this.moveController)
         window.addEventListener('keyup', this.keysReleased)
+        this.animate()
     }
 
+    animate = () => {
+        requestAnimationFrame(this.animate)
+        this.move()
+    }
+    
     keepPlayerInsideField = () => {
         // X-axis borders
-        if (this.state.positionX > (boardCenterX - puckSize)) {
+        if (this.state.positionX > (boardCenterX - puckSize)) {    
             this.setState({
                 positionX: boardCenterX - puckSize,
+                velocityX: -this.state.velocityX * 0.75
             })
         }
+
         if (this.state.positionX < (0 + puckSize)) {
             this.setState({
                 positionX: 0 + puckSize,
+                velocityX: -this.state.velocityX * 0.75
             })
         }
         // Y-axis borders
         if (this.state.positionY > MAX_Y) {
             this.setState({
                 positionY: MAX_Y,
+                velocityY: -this.state.velocityY * 0.75
             })
         }
         if (this.state.positionY < (0 + puckSize)) {
             this.setState({
                 positionY: 0 + puckSize,
+                velocityY: -this.state.velocityY * 0.75
             })
         }
     }
