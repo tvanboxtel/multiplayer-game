@@ -67,6 +67,10 @@ export default class Puck extends PureComponent {
         }
     }
 
+    componentDidUpdate() {
+        this.keepPuckInsideField()
+    }
+
     render() {
         return (
             <Circle
