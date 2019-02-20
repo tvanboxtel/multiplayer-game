@@ -7,8 +7,7 @@ import { connect } from 'react-redux'
 const keys = [],
     MIN_Y = 52,
     MAX_Y = HEIGHT - MIN_Y,
-    boardCenterX = WIDTH / 2,
-    puckSize = 52;
+    boardCenterX = WIDTH / 2
 
 class PlayerOneContainer extends React.Component {
 
@@ -28,7 +27,7 @@ class PlayerOneContainer extends React.Component {
 
         // Up
         if (keys[87]) {
-            if (this.props.playerOne.positionY > 0 + puckSize) {
+            if (this.props.playerOne.positionY > 0 + this.props.playerOne.puckSize) {
                 this.props.movePlayerOne({ velocityY: this.props.playerOne.velocityY - this.props.playerOne.acceleration })
                 this.move()
             } 
@@ -44,7 +43,7 @@ class PlayerOneContainer extends React.Component {
 
         // Right
         if (keys[68]) {
-            if (this.props.playerOne.positionX < boardCenterX - puckSize) {
+            if (this.props.playerOne.positionX < boardCenterX - this.props.playerOne.puckSize) {
                 this.props.movePlayerOne({ velocityX: this.props.playerOne.velocityX + this.props.playerOne.acceleration })
                 this.move()
             } 
@@ -52,12 +51,11 @@ class PlayerOneContainer extends React.Component {
 
         // Left, decrease acceleration
         if (keys[65]) {
-            if (this.props.playerOne.positionX > 0 + puckSize) {
+            if (this.props.playerOne.positionX > 0 + this.props.playerOne.puckSize) {
                 this.props.movePlayerOne({ velocityX: this.props.playerOne.velocityX - this.props.playerOne.acceleration })
                 this.move()
             } 
         }
-
     }
 
 
@@ -79,16 +77,16 @@ class PlayerOneContainer extends React.Component {
 
     keepPlayerInsideField = () => {
         // X-axis borders
-        if (this.props.playerOne.positionX > (boardCenterX - puckSize)) {
+        if (this.props.playerOne.positionX > (boardCenterX - this.props.playerOne.puckSize)) {
             this.props.movePlayerOne({
-                positionX: boardCenterX - puckSize,
+                positionX: boardCenterX - this.props.playerOne.puckSize,
                 velocityX: -this.props.playerOne.velocityX * 0.75
             })
         }
 
-        if (this.props.playerOne.positionX < (0 + puckSize)) {
+        if (this.props.playerOne.positionX < (0 + this.props.playerOne.puckSize)) {
             this.props.movePlayerOne({
-                positionX: 0 + puckSize,
+                positionX: 0 + this.props.playerOne.puckSize,
                 velocityX: -this.props.playerOne.velocityX * 0.75
             })
         }
@@ -99,9 +97,9 @@ class PlayerOneContainer extends React.Component {
                 velocityY: -this.props.playerOne.velocityY * 0.75
             })
         }
-        if (this.props.playerOne.positionY < (0 + puckSize)) {
+        if (this.props.playerOne.positionY < (0 + this.props.playerOne.puckSize)) {
             this.props.movePlayerOne({
-                positionY: 0 + puckSize,
+                positionY: 0 + this.props.playerOne.puckSize,
                 velocityY: -this.props.playerOne.velocityY * 0.75
             })
         }
@@ -116,7 +114,7 @@ class PlayerOneContainer extends React.Component {
             <Circle
                 x={this.props.playerOne.positionX}
                 y={this.props.playerOne.positionY}
-                radius={puckSize}
+                radius={this.props.playerOne.puckSize}
                 fill={'blue'}
                 stroke={'black'}
                 strokeWidth={3}

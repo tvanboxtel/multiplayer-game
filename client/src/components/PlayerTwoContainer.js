@@ -8,8 +8,7 @@ const keys = [],
     MIN_Y = 52,
     MAX_Y = HEIGHT - MIN_Y,
     MAX_X = WIDTH,
-    boardCenterX = WIDTH / 2,
-    puckSize = 52;
+    boardCenterX = WIDTH / 2
 
 class PlayerTwoContainer extends PureComponent {
 
@@ -30,7 +29,7 @@ class PlayerTwoContainer extends PureComponent {
 
         // Up
         if (keys[38]) {
-            if (this.props.playerTwo.positionY > 0 + puckSize) {
+            if (this.props.playerTwo.positionY > 0 + this.props.playerTwo.puckSize) {
                 this.props.movePlayerTwo({ velocityY: this.props.playerTwo.velocityY - this.props.playerTwo.acceleration })
                 this.move()
             }
@@ -46,7 +45,7 @@ class PlayerTwoContainer extends PureComponent {
 
         // Right
         if (keys[39]) {
-            if (this.props.playerTwo.positionX < WIDTH - puckSize) {
+            if (this.props.playerTwo.positionX < WIDTH - this.props.playerTwo.puckSize) {
                 this.props.movePlayerTwo({ velocityX: this.props.playerTwo.velocityX + this.props.playerTwo.acceleration })
                 this.move()
             } 
@@ -54,7 +53,7 @@ class PlayerTwoContainer extends PureComponent {
 
         // Left, decrease acceleration
         if (keys[37]) {
-            if (this.props.playerTwo.positionX > boardCenterX + puckSize) {
+            if (this.props.playerTwo.positionX > boardCenterX + this.props.playerTwo.puckSize) {
                 this.props.movePlayerTwo({ velocityX: this.props.playerTwo.velocityX - this.props.playerTwo.acceleration })
                 this.move()
             } 
@@ -79,16 +78,16 @@ class PlayerTwoContainer extends PureComponent {
 
     keepPlayerInsideField  = ()  => {
         // X-axis borders
-        if (this.props.playerTwo.positionX < (boardCenterX + puckSize)) {
+        if (this.props.playerTwo.positionX < (boardCenterX + this.props.playerTwo.puckSize)) {
             this.props.movePlayerTwo({
-                positionX: boardCenterX + puckSize,
+                positionX: boardCenterX + this.props.playerTwo.puckSize,
                 velocityX: -this.props.playerTwo.velocityX * 0.75
 
             })
         }
-        if (this.props.playerTwo.positionX > (MAX_X - puckSize)) {
+        if (this.props.playerTwo.positionX > (MAX_X - this.props.playerTwo.puckSize)) {
             this.props.movePlayerTwo({
-                positionX : MAX_X - puckSize,
+                positionX : MAX_X - this.props.playerTwo.puckSize,
                 velocityX: -this.props.playerTwo.velocityX * 0.75
 
             })
@@ -101,9 +100,9 @@ class PlayerTwoContainer extends PureComponent {
 
             })
         }
-        if (this.props.playerTwo.positionY < (0 + puckSize)) {
+        if (this.props.playerTwo.positionY < (0 + this.props.playerTwo.puckSize)) {
             this.props.movePlayerTwo({
-                positionY : 0 + puckSize,
+                positionY : 0 + this.props.playerTwo.puckSize,
                 velocityY: -this.props.playerTwo.velocityY * 0.75
 
             })
@@ -119,7 +118,7 @@ class PlayerTwoContainer extends PureComponent {
             <Circle
                 x={this.props.playerTwo.positionX}
                 y={this.props.playerTwo.positionY}
-                radius={puckSize}
+                radius={this.props.playerTwo.puckSize}
                 fill={'red'}
                 stroke={'black'}
                 strokeWidth={3}

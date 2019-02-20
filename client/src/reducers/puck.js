@@ -9,7 +9,8 @@ const puck = {
     velocityY: 0,
     frictionX: 1,
     frictionY: 1,
-    acceleration: 1
+    acceleration: 1,
+    puckSize: 25
 };
 
 export default (state = puck, action = {}) => {

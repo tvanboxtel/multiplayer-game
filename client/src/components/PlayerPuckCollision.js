@@ -16,22 +16,28 @@ function rotate(x, y, sin, cos, reverse) {
 //
 function checkCollision(Player, Puck) {
     let distanceX = Puck.positionX - Player.positionX,
-        distanceY  = Puck.positionY - Player.positionY,
+        distanceY = Puck.positionY - Player.positionY,
         // distance between puck and player
         distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-        // both puck sizes added together
-        addedRadius = Puck.puckSize + Player.puckSize
+    // both puck sizes added together
+    addedRadius = Puck.puckSize + Player.puckSize
 
-        //if the distance between the two entities exceeds
-        // their combined radius, they have collided!
-        if (distance < addedRadius){
-            console.log('We have collided!')
+    //if the distance between the two entities exceeds
+    // their combined radius, they have collided!
+    if (distance < addedRadius) {
+        console.log('We have collided!')
 
-            // all collision logic goes here
+        // all collision logic goes here
 
-            // we create a sine and cosine
-            const angle = Math.atan2(distanceY, distanceX),
-                sin = Math.sin(angle),
-                cos = Math.cos(angle),
-        }
+        // we create a sine and cosine
+        const angle = Math.atan2(distanceY, distanceX),
+            sin = Math.sin(angle),
+            cos = Math.cos(angle),
     }
+}
+
+const mapStateToProps = state => {
+    return {
+        playerOne: state.playerOne
+    }
+}
