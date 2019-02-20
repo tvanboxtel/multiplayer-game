@@ -62,7 +62,7 @@ class PlayerOneContainer extends React.Component {
         // Right
         if (keys[68]) {
             if (this.props.playerOne.positionX < boardCenterX - puckSize) {
-                movePlayer({ velocityX: this.props.playerOne.velocityX + this.props.playerOne.acceleration })
+                this.props.movePlayer({ velocityX: this.props.playerOne.velocityX + this.props.playerOne.acceleration })
                 this.move()
             } else {
                 this.setState({ velocityX: 0, velocityY: 0 })
