@@ -1,4 +1,4 @@
-import { MOVE_PLAYER } from '../actions/player'
+import { MOVE_PLAYER_ONE, MOVE_PLAYER_TWO } from '../actions/player'
 import { WIDTH, HEIGHT } from "../components/PlayingFieldContainer";
 
 
@@ -13,11 +13,29 @@ const playerOne = {
     acceleration: 1
 };
 
+const playerTwo = {
+    positionX: WIDTH / 5,
+    positionY: HEIGHT / 2,
+    mass: 15,
+    velocityX: 0,
+    velocityY: 0,
+    frictionX: 1,
+    frictionY: 1,
+    acceleration: 1
+};
+
 export default (state = playerOne, action = {}) => {
     switch (action.type) {
-        case MOVE_PLAYER:
-            return {...state,
-                ...action.payload}
+        case MOVE_PLAYER_ONE:
+            return {
+                ...state,
+                ...action.payload
+            }
+        case MOVE_PLAYER_TWO:
+            return {
+                ...state,
+                ...action.payload
+            }
         default:
             return state;
     }

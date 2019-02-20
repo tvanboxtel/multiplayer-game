@@ -1,5 +1,7 @@
 import React, { PureComponent } from "react";
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
+import { movePlayer } from '../actions/player'
+
 import { Circle } from "react-konva";
 
 const keys = [],
