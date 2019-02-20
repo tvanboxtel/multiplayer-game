@@ -1,6 +1,8 @@
-import React, { PureComponent } from "react";
+import * as React from 'react'
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 import { Circle } from "react-konva";
+import { movePlayer } from '../actions/player'
+import { connect } from 'react-redux'
 
 const keys = [],
     MIN_Y = 52,
@@ -8,7 +10,8 @@ const keys = [],
     boardCenterX = WIDTH / 2,
     puckSize = 52;
 
-export default class PlayerOneContainer extends PureComponent {
+// export default 
+class PlayerOneContainer extends React.Component {
     state = {
         positionX: WIDTH / 5,
         positionY: HEIGHT / 2,
@@ -20,7 +23,7 @@ export default class PlayerOneContainer extends PureComponent {
         acceleration: 1
     };
 
-     move = () => {
+    move = () => {
 
         this.setState({ velocityX: this.state.velocityX * this.state.frictionX })
         this.setState({ velocityY: this.state.velocityY * this.state.frictionY })
@@ -49,6 +52,8 @@ export default class PlayerOneContainer extends PureComponent {
             if (this.state.positionY < MAX_Y) {
                 this.setState({ velocityY: this.state.velocityY + this.state.acceleration })
                 this.move()
+                movePlayer()
+
             } else {
                 this.setState({ velocityY: 0, velocityX: 0 })
             }
@@ -92,10 +97,10 @@ export default class PlayerOneContainer extends PureComponent {
         requestAnimationFrame(this.animate)
         this.move()
     }
-    
+
     keepPlayerInsideField = () => {
         // X-axis borders
-        if (this.state.positionX > (boardCenterX - puckSize)) {    
+        if (this.state.positionX > (boardCenterX - puckSize)) {
             this.setState({
                 positionX: boardCenterX - puckSize,
                 velocityX: -this.state.velocityX * 0.75
@@ -147,3 +152,13 @@ export default class PlayerOneContainer extends PureComponent {
     }
 
 }
+
+const mapStateToProps = state => {
+    console.log(state)
+    return {
+        player: state.player
+    }
+}
+
+
+export default connect(mapStateToProps, { movePlayer })(PlayerOneContainer)
