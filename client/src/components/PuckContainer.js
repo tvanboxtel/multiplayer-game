@@ -5,9 +5,6 @@ import { movePuck } from '../actions/puck'
 import { connect } from 'react-redux'
 
 const
-    // no longer needed?
-    // initialX = WIDTH / 2,
-    // initialY = HEIGHT / 2,
     MAX_X = WIDTH,
     MAX_Y = HEIGHT
 
@@ -34,21 +31,22 @@ class Puck extends PureComponent {
 
     keepPuckInsideField = () => {
 
-        // puck does not slow down upon collision.
-        // If desired, add slow down multiplier to:
-        // -this.props.puck.${velocityDirection} * ${brakeFactor}
-        // X-axis borders
-
         if (this.props.puck.positionX > (MAX_X - this.props.puck.puckSize)) {
             this.props.movePuck({
                 positionX: MAX_X - this.props.puck.puckSize,
                 velocityX: -this.props.puck.velocityX
             })
         }
-        // Y-axis borders
-        if (this.props.puck.positionY > MAX_Y) {
+        if (this.props.puck.positionX < (0 + this.props.puck.puckSize)) {
             this.props.movePuck({
-                positionY: MAX_Y,
+                positionX: 0 + this.props.puck.puckSize,
+                velocityX: -this.props.puck.velocityX
+            })
+        }
+        // Y-axis borders
+        if (this.props.puck.positionY > MAX_Y - this.props.puck.puckSize) {
+            this.props.movePuck({
+                positionY: MAX_Y - this.props.puck.puckSize,
                 velocityY: -this.props.puck.velocityY
             })
         }
