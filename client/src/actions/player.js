@@ -15,11 +15,14 @@ export const MOVE_PLAYER = 'MOVE_PLAYER'
 //     }
 // }
 
-export const movePlayer = (velocityX) => {
-    console.log(velocityX)
+export const movePlayer = (positionX, positionY, velocityX, velocityY) => {
     return {
       type: MOVE_PLAYER,
-      payload: velocityX
+      payload: 
+      positionX,
+      positionY,
+      velocityX,
+      velocityY
     }
   }
 
