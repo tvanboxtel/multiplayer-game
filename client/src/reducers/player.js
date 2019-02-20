@@ -1,6 +1,19 @@
 import { MOVE_PLAYER } from '../actions/player'
+import { WIDTH, HEIGHT } from "../components/PlayingFieldContainer";
 
-export default (state = 'I am the default state', action = {}) => {
+
+const playerOne = {
+    positionX: WIDTH / 5,
+    positionY: HEIGHT / 2,
+    mass: 15,
+    velocityX: 0,
+    velocityY: 0,
+    frictionX: 1,
+    frictionY: 1,
+    acceleration: 1
+};
+
+export default (state = playerOne, action = {}) => {
     switch (action.type) {
         case MOVE_PLAYER :
             return state = action.player

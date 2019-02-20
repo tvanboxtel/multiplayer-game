@@ -13,7 +13,7 @@ const keys = [],
 // export default 
 class PlayerOneContainer extends React.Component {
     state = {
-        positionX: WIDTH / 5,
+        // positionX: WIDTH / 5,
         positionY: HEIGHT / 2,
         mass: 15,
         velocityX: 0,
@@ -135,7 +135,7 @@ class PlayerOneContainer extends React.Component {
     render() {
         return (
             <Circle
-                x={this.state.positionX}
+                x={this.props.playerOne.positionX}
                 y={this.state.positionY}
                 radius={puckSize}
                 fill={'blue'}
@@ -156,7 +156,7 @@ class PlayerOneContainer extends React.Component {
 const mapStateToProps = state => {
     console.log(state)
     return {
-        player: state.player
+        playerOne: state.playerOne
     }
 }
 
