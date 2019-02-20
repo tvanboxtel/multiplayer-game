@@ -1,25 +1,29 @@
 // import * as request from 'superagent'
 
-export const MOVE_PLAYER = 'MOVE_PLAYER'
+export const MOVE_PLAYER_ONE = 'MOVE_PLAYER_ONE'
+export const MOVE_PLAYER_TWO = 'MOVE_PLAYER_TWO'
 
 // const baseUrl = 'http://localhost:4000'
 
-// Currently called player, should contain
-// velocities + positions
-// export function movePlayer(velocityX) {
-//     console.log(velocityX)
-//     return {
-        
-//         type: MOVE_PLAYER,
-//         payload: velocityX
-//     }
-// }
-
-export const movePlayer = (velocityX) => {
-    console.log(velocityX)
+export const movePlayerOne = (positionX, positionY, velocityX, velocityY) => {
     return {
-      type: MOVE_PLAYER,
-      payload: velocityX
+      type: MOVE_PLAYER_ONE,
+      payload: 
+      positionX,
+      positionY,
+      velocityX,
+      velocityY
+    }
+  }
+
+  export const movePlayerTwo = (positionX, positionY, velocityX, velocityY) => {
+    return {
+      type: MOVE_PLAYER_TWO,
+      payload: 
+      positionX,
+      positionY,
+      velocityX,
+      velocityY
     }
   }
 
