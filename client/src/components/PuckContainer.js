@@ -4,9 +4,10 @@ import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 import { movePuck } from '../actions/puck'
 import { connect } from 'react-redux'
 
-const 
-    initialX = WIDTH / 2,
-    initialY = HEIGHT / 2,
+const
+    // no longer needed?
+    // initialX = WIDTH / 2,
+    // initialY = HEIGHT / 2,
     MAX_X = WIDTH,
     MAX_Y = HEIGHT
 
@@ -31,7 +32,7 @@ class Puck extends PureComponent {
         this.move()
     }
 
-    keepPuckInsideField  = ()  => {
+    keepPuckInsideField = () => {
 
         // puck does not slow down upon collision.
         // If desired, add slow down multiplier to:
@@ -40,8 +41,8 @@ class Puck extends PureComponent {
 
         if (this.props.puck.positionX > (MAX_X - this.props.puck.puckSize)) {
             this.props.movePuck({
-                positionX : MAX_X - this.props.puck.puckSize,
-                velocityX: -this.props.puck.velocityX  
+                positionX: MAX_X - this.props.puck.puckSize,
+                velocityX: -this.props.puck.velocityX
             })
         }
         // Y-axis borders
@@ -53,7 +54,7 @@ class Puck extends PureComponent {
         }
         if (this.props.puck.positionY < (0 + this.props.puck.puckSize)) {
             this.props.movePuck({
-                positionY : 0 + this.props.puck.puckSize,
+                positionY: 0 + this.props.puck.puckSize,
                 velocityY: -this.props.puck.velocityY
             })
         }
@@ -66,36 +67,51 @@ class Puck extends PureComponent {
 
     }
 
-    rotate (x, y, sin, cos, reverse) {
+    rotate(x, y, sin, cos, reverse) {
         return {
             x: (reverse) ? (x * cos + y * sin) : (x * cos - y * sin),
             y: (reverse) ? (y * cos - x * sin) : (y * cos + x * sin)
         };
     }
-    
-    
-    checkCollision(Player, Puck) {
-        let distanceX = Puck.positionX - Player.positionX,
-            distanceY = Puck.positionY - Player.positionY,
-        
-            // distance between puck and player
+
+
+    checkCollision(puck, player) {
+        const distanceX = player.positionX - puck.positionX,
+            distanceY = player.positionY - puck.positionY,
             distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY),
-        // both puck sizes added together
-        addedRadius = Puck.puckSize + Player.puckSize
-        // console.log(addedRadius)
-        // debugger
-    
+            addedRadius = player.puckSize + puck.puckSize
+
         //if the distance between the two entities exceeds
         // their combined radius, they have collided!
         if (distance < addedRadius) {
-            console.log('We have collided!')
-    
-            // all collision logic goes here
-    
-            // we create a sine and cosine
-            const angle = Math.atan2(distanceY, distanceX),
+            // all collision logic goes here    
+            let angle = Math.atan2(distanceY, distanceX),
                 sin = Math.sin(angle),
-                cos = Math.cos(angle)
+                cos = Math.cos(angle),
+
+                positionPuck = { x: 0, y: 0 },
+                positionPlayer = this.rotate(distanceX, distanceY, sin, cos, true),
+                velocityPuck = this.rotate(puck.velocityX, puck.velocityY, sin, cos, true),
+                velocityPlayer = this.rotate(player.velocityX, player.velocityY, sin, cos, true),
+                velocityTotal = velocityPuck.x - velocityPlayer.x;
+                console.log(velocityTotal)
+                debugger
+            // Currently always returns zero because the puck's initial velocity IS zero
+            // velocityPuck.x = ((puck.mass - player.mass) * velocityPuck.x + 2 * player.mass * velocityPlayer.x) /
+            //     (puck.mass + player.mass);
+            // velocityPlayer.x = velocityTotal + velocityPuck.x;
+
+            // let absV = Math.abs(velocityPuck.x) + Math.abs(velocityPlayer.x),
+            //     overlap = (puck.puckSize + player.puckSize) - Math.abs(positionPuck.x - positionPlayer.x);
+
+            // positionPuck.x += velocityPuck.x / absV * overlap;
+            // positionPlayer.x += velocityPlayer.x / absV * overlap
+
+            // let positionPuckF = this.rotate(positionPuck.x, positionPuck.y, sin, cos, false),
+            //     positionPlayerF = this.rotate(positionPlayer.x, positionPlayer.y, sin, cos, false);
+
+           
+
         }
     }
 
@@ -128,7 +144,7 @@ const mapStateToProps = state => {
         puck: state.puck,
         playerOne: state.playerOne,
         playerTwo: state.playerTwo
-    }    
+    }
 }
 
 
