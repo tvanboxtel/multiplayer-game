@@ -1,8 +1,10 @@
-export default (state = null, {type, payload}) => {
-    switch (type) {
-        case 'hello':
-            return null
-    
+import { MOVE_PLAYER } from '../actions/player'
+
+export default (state = 'I am the default state', action = {}) => {
+    switch (action.type) {
+        case MOVE_PLAYER :
+            return state = action.player
+
         default:
             return state;
     }
