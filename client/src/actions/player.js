@@ -6,13 +6,22 @@ export const MOVE_PLAYER = 'MOVE_PLAYER'
 
 // Currently called player, should contain
 // velocities + positions
-export function movePlayer(player) {
-    console.log('being called')
+// export function movePlayer(velocityX) {
+//     console.log(velocityX)
+//     return {
+        
+//         type: MOVE_PLAYER,
+//         payload: velocityX
+//     }
+// }
+
+export const movePlayer = (velocityX) => {
+    console.log(velocityX)
     return {
-        type: MOVE_PLAYER,
-        payload: player
+      type: MOVE_PLAYER,
+      payload: velocityX
     }
-}
+  }
 
 // export const updatePlayerPosition = (position) => {
 

@@ -12,25 +12,25 @@ const keys = [],
 
 // export default 
 class PlayerOneContainer extends React.Component {
-    state = {
-        // positionX: WIDTH / 5,
-        positionY: HEIGHT / 2,
-        mass: 15,
-        velocityX: 0,
-        velocityY: 0,
-        frictionX: 1,
-        frictionY: 1,
-        acceleration: 1
-    };
+    // state = {
+    //     // positionX: WIDTH / 5,
+    //     // positionY: HEIGHT / 2,
+    //     mass: 15,
+    //     velocityX: 0,
+    //     velocityY: 0,
+    //     frictionX: 1,
+    //     frictionY: 1,
+    //     acceleration: 1
+    // };
 
     move = () => {
 
-        this.setState({ velocityX: this.state.velocityX * this.state.frictionX })
-        this.setState({ velocityY: this.state.velocityY * this.state.frictionY })
+        this.setState({ velocityX: this.props.playerOne.velocityX * this.props.playerOne.frictionX })
+        this.setState({ velocityY: this.props.playerOne.velocityY * this.props.playerOne.frictionY })
 
 
-        this.setState({ positionX: this.state.positionX + this.state.velocityX })
-        this.setState({ positionY: this.state.positionY + this.state.velocityY })
+        this.setState({ positionX: this.props.playerOne.positionX + this.props.playerOne.velocityX })
+        this.setState({ positionY: this.props.playerOne.positionY + this.props.playerOne.velocityY })
     }
 
     moveController = (event) => {
@@ -39,8 +39,8 @@ class PlayerOneContainer extends React.Component {
 
         // Up
         if (keys[87]) {
-            if (this.state.positionY > 0 + puckSize) {
-                this.setState({ velocityY: this.state.velocityY - this.state.acceleration })
+            if (this.props.playerOne.positionY > 0 + puckSize) {
+                this.setState({ velocityY: this.props.playerOne.velocityY - this.props.playerOne.acceleration })
                 this.move()
             } else {
                 this.setState({ velocityY: 0, velocityX: 0 })
@@ -49,8 +49,8 @@ class PlayerOneContainer extends React.Component {
 
         // // Down
         if (keys[83]) {
-            if (this.state.positionY < MAX_Y) {
-                this.setState({ velocityY: this.state.velocityY + this.state.acceleration })
+            if (this.props.playerOne.positionY < MAX_Y) {
+                this.setState({ velocityY: this.props.playerOne.velocityY + this.props.playerOne.acceleration })
                 this.move()
                 movePlayer()
 
@@ -61,8 +61,8 @@ class PlayerOneContainer extends React.Component {
 
         // Right
         if (keys[68]) {
-            if (this.state.positionX < boardCenterX - puckSize) {
-                this.setState({ velocityX: this.state.velocityX + this.state.acceleration })
+            if (this.props.playerOne.positionX < boardCenterX - puckSize) {
+                this.props.movePlayer({ velocityX: this.props.playerOne.velocityX + this.props.playerOne.acceleration })
                 this.move()
             } else {
                 this.setState({ velocityX: 0, velocityY: 0 })
@@ -71,8 +71,8 @@ class PlayerOneContainer extends React.Component {
 
         // Left, decrease acceleration
         if (keys[65]) {
-            if (this.state.positionX > 0 + puckSize) {
-                this.setState({ velocityX: this.state.velocityX - this.state.acceleration })
+            if (this.props.playerOne.positionX > 0 + puckSize) {
+                this.setState({ velocityX: this.props.playerOne.velocityX - this.props.playerOne.acceleration })
                 this.move()
             } else {
                 this.setState({ velocityX: 0, velocityY: 0 })
@@ -100,30 +100,30 @@ class PlayerOneContainer extends React.Component {
 
     keepPlayerInsideField = () => {
         // X-axis borders
-        if (this.state.positionX > (boardCenterX - puckSize)) {
+        if (this.props.playerOne.positionX > (boardCenterX - puckSize)) {
             this.setState({
                 positionX: boardCenterX - puckSize,
-                velocityX: -this.state.velocityX * 0.75
+                velocityX: -this.props.playerOne.velocityX * 0.75
             })
         }
 
-        if (this.state.positionX < (0 + puckSize)) {
+        if (this.props.playerOne.positionX < (0 + puckSize)) {
             this.setState({
                 positionX: 0 + puckSize,
-                velocityX: -this.state.velocityX * 0.75
+                velocityX: -this.props.playerOne.velocityX * 0.75
             })
         }
         // Y-axis borders
-        if (this.state.positionY > MAX_Y) {
+        if (this.props.playerOne.positionY > MAX_Y) {
             this.setState({
                 positionY: MAX_Y,
-                velocityY: -this.state.velocityY * 0.75
+                velocityY: -this.props.playerOne.velocityY * 0.75
             })
         }
-        if (this.state.positionY < (0 + puckSize)) {
+        if (this.props.playerOne.positionY < (0 + puckSize)) {
             this.setState({
                 positionY: 0 + puckSize,
-                velocityY: -this.state.velocityY * 0.75
+                velocityY: -this.props.playerOne.velocityY * 0.75
             })
         }
     }
@@ -136,17 +136,17 @@ class PlayerOneContainer extends React.Component {
         return (
             <Circle
                 x={this.props.playerOne.positionX}
-                y={this.state.positionY}
+                y={this.props.playerOne.positionY}
                 radius={puckSize}
                 fill={'blue'}
                 stroke={'black'}
                 strokeWidth={3}
-                mass={this.state.mass}
-                velocityX={this.state.velocityX}
-                velocityY={this.state.velocityY}
-                frictionX={this.state.frictionX}
-                frictionY={this.state.frictionY}
-                acceleration={this.state.acceleration}
+                mass={this.props.playerOne.mass}
+                velocityX={this.props.playerOne.velocityX}
+                velocityY={this.props.playerOne.velocityY}
+                frictionX={this.props.playerOne.frictionX}
+                frictionY={this.props.playerOne.frictionY}
+                acceleration={this.props.playerOne.acceleration}
             />
         );
     }

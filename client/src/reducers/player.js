@@ -15,10 +15,11 @@ const playerOne = {
 
 export default (state = playerOne, action = {}) => {
     switch (action.type) {
-        case MOVE_PLAYER :
-            return state = action.player
-
+        case MOVE_PLAYER:
+            console.log('action')
+            return {...state + action.payload}
         default:
+            console.log(action.payload)
             return state;
     }
 }
