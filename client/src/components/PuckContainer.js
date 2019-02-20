@@ -67,10 +67,14 @@ class Puck extends PureComponent {
 
     }
 
-    rotate(x, y, sin, cos, reverse) {
+    rotate(positionX, positionY, sin, cos, reverse) {
         return {
-            x: (reverse) ? (x * cos + y * sin) : (x * cos - y * sin),
-            y: (reverse) ? (y * cos - x * sin) : (y * cos + x * sin)
+
+            positionX: (reverse) ? (positionX * cos + positionY * sin)
+                : (positionX * cos - positionY * sin),
+
+            positionY: (reverse) ? (positionY * cos - positionX * sin)
+                : (positionY * cos + positionX * sin)
         };
     }
 
@@ -81,36 +85,47 @@ class Puck extends PureComponent {
             distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY),
             addedRadius = player.puckSize + puck.puckSize
 
-        //if the distance between the two entities exceeds
-        // their combined radius, they have collided!
+   
         if (distance < addedRadius) {
             // all collision logic goes here    
             let angle = Math.atan2(distanceY, distanceX),
                 sin = Math.sin(angle),
                 cos = Math.cos(angle),
 
-                positionPuck = { x: 0, y: 0 },
+                positionPuck = { positionX: 0, positionY: 0 },
                 positionPlayer = this.rotate(distanceX, distanceY, sin, cos, true),
                 velocityPuck = this.rotate(puck.velocityX, puck.velocityY, sin, cos, true),
                 velocityPlayer = this.rotate(player.velocityX, player.velocityY, sin, cos, true),
-                velocityTotal = velocityPuck.x - velocityPlayer.x;
-                console.log(velocityTotal)
-                debugger
-            // Currently always returns zero because the puck's initial velocity IS zero
-            // velocityPuck.x = ((puck.mass - player.mass) * velocityPuck.x + 2 * player.mass * velocityPlayer.x) /
-            //     (puck.mass + player.mass);
-            // velocityPlayer.x = velocityTotal + velocityPuck.x;
+                velocityTotal = velocityPuck.positionX - velocityPlayer.positionX;
 
-            // let absV = Math.abs(velocityPuck.x) + Math.abs(velocityPlayer.x),
-            //     overlap = (puck.puckSize + player.puckSize) - Math.abs(positionPuck.x - positionPlayer.x);
+            velocityPuck.positionX = ((puck.mass - player.mass) * velocityPuck.positionX + 2 * player.mass * velocityPlayer.positionX) /
+                (puck.mass + player.mass);
+            velocityPlayer.positionX = velocityTotal + velocityPuck.positionX;
 
-            // positionPuck.x += velocityPuck.x / absV * overlap;
-            // positionPlayer.x += velocityPlayer.x / absV * overlap
+            let absV = Math.abs(velocityPuck.positionX) + Math.abs(velocityPlayer.positionX),
+                overlap = (puck.puckSize + player.puckSize) - Math.abs(positionPuck.positionX - positionPlayer.positionX);
 
-            // let positionPuckF = this.rotate(positionPuck.x, positionPuck.y, sin, cos, false),
-            //     positionPlayerF = this.rotate(positionPlayer.x, positionPlayer.y, sin, cos, false);
 
-           
+            positionPuck.positionX += velocityPuck.positionX / absV * overlap;
+            positionPlayer.positionX += velocityPlayer.positionX / absV * overlap
+
+            let positionPuckForce = this.rotate(positionPuck.positionX, positionPuck.positionY, sin, cos, false),
+                positionPlayerForce = this.rotate(positionPlayer.positionX, positionPlayer.positionY, sin, cos, false);
+
+            player.positionX = puck.positionX + positionPlayerForce.positionX;
+            player.positionY = puck.positionY + positionPlayerForce.positionY;
+
+            puck.positionX = puck.positionX + positionPuckForce.positionX;
+            puck.positionY = puck.positionY + positionPuckForce.positionY
+
+            let velocityPuckForce = this.rotate(velocityPuck.positionX, velocityPuck.positionY, sin, cos, false);
+            let velocityPlayerForce = this.rotate(velocityPlayer.positionX, velocityPlayer.positionY, sin, cos, false);
+
+            puck.velocityX = velocityPuckForce.positionX;
+            puck.velocityY = velocityPuckForce.positionY;
+
+            player.velocityX = velocityPlayerForce.positionX;
+            player.velocityY = velocityPlayerForce.positionY;
 
         }
     }
