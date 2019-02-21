@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 import { Circle } from "react-konva";
-import { movePlayerOne, addPlayerOne } from '../actions/player'
+import { movePlayerOne, movePlayer1 } from '../actions/player'
 import { connect } from 'react-redux'
-
 
 const keys = [],
     MIN_Y = 52,
     MAX_Y = HEIGHT - MIN_Y,
     boardCenterX = WIDTH / 2
+
 
 class PlayerOneContainer extends React.Component {
 
@@ -31,7 +31,7 @@ class PlayerOneContainer extends React.Component {
             if (this.props.playerOne.positionY > 0 + this.props.playerOne.puckSize) {
                 this.props.movePlayerOne({ velocityY: this.props.playerOne.velocityY - this.props.playerOne.acceleration })
                 this.move()
-            } 
+            }
         }
 
         // // Down
@@ -47,7 +47,7 @@ class PlayerOneContainer extends React.Component {
             if (this.props.playerOne.positionX < boardCenterX - this.props.playerOne.puckSize) {
                 this.props.movePlayerOne({ velocityX: this.props.playerOne.velocityX + this.props.playerOne.acceleration })
                 this.move()
-            } 
+            }
         }
 
         // Left, decrease acceleration
@@ -55,7 +55,7 @@ class PlayerOneContainer extends React.Component {
             if (this.props.playerOne.positionX > 0 + this.props.playerOne.puckSize) {
                 this.props.movePlayerOne({ velocityX: this.props.playerOne.velocityX - this.props.playerOne.acceleration })
                 this.move()
-            } 
+            }
         }
     }
 
@@ -64,10 +64,8 @@ class PlayerOneContainer extends React.Component {
         keys[event.keyCode] = false;
     }
 
-    tester = () => {
-        if (keys[65]) {
-                this.props.addPlayerOne(this.props.playerOne.positionX, this.props.playerOne.positionY, this.props.playerOne.velocityX, this.props.playerOne.velocityY)
-        }
+    mirrorMode = () => {
+            this.props.movePlayer1(this.props.playerOne.positionX, this.props.playerOne.positionY, this.props.playerOne.velocityX, this.props.playerOne.velocityY)
     }
 
     // used to be ComponentWillMount
@@ -81,6 +79,7 @@ class PlayerOneContainer extends React.Component {
     animate = () => {
         requestAnimationFrame(this.animate)
         this.move()
+        this.mirrorMode()
     }
 
     keepPlayerInsideField = () => {
@@ -144,10 +143,4 @@ const mapStateToProps = state => {
     }
 }
 
-
-export default connect(mapStateToProps, { movePlayerOne, addPlayerOne })(PlayerOneContainer)
-
-// Potential border stoppage
-// else {
-//     this.props.movePlayerOne({ velocityX: 0, velocityY: 0 })
-// }
+export default connect(mapStateToProps, { movePlayerOne, movePlayer1 })(PlayerOneContainer)

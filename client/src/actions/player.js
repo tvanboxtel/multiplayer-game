@@ -1,27 +1,34 @@
 import openSocket from 'socket.io-client'
-import store from '../store';
-// import store from '../store';
 const port = process.env.PORT || 'http://localhost:4000'
 const socket = openSocket(port)
 
 export const ADD_PLAYER_ONE = 'ADD_PLAYER_ONE'
 export const ADD_SCORE = 'ADD_SCORE'
 
+export const PLAYER_ONE_MOVED = 'PLAYER_ONE_MOVED'
 
 export const MOVE_PLAYER_ONE = 'MOVE_PLAYER_ONE'
 export const MOVE_PLAYER_TWO = 'MOVE_PLAYER_TWO'
 
-export const addPlayerOne = (positionX, positionY, velocityX, velocityY) => (dispatch) => {
-    socket.emit('addPlayerOne', {
+export const movePlayer1 = (positionX, positionY, velocityX, velocityY) => (dispatch) => {
+    socket.emit('movePlayer1', {
         positionX,
         positionY,
         velocityX,
         velocityY
     })
 
-    dispatch({
-        type: ADD_PLAYER_ONE,
-        payload: Number
+    socket.on('playerOneMoved', (positionX, positionY, velocityX, velocityY) => {
+
+        dispatch({
+            type: PLAYER_ONE_MOVED,
+            payload:
+            positionX,
+            positionY,
+            velocityX,
+            velocityY
+        })
+        
     })
 }
 
@@ -46,3 +53,26 @@ export const movePlayerTwo = (positionX, positionY, velocityX, velocityY) => {
         velocityY
     }
 }
+
+
+// export const movePlayer1 = (positionX, positionY, velocityX, velocityY) => (dispatch) => {
+//     socket.emit('movePlayer1', {
+//         positionX,
+//         positionY,
+//         velocityX,
+//         velocityY
+//     })
+
+//     socket.on('playerOneMoved', (positionX, positionY, velocityX, velocityY) => {
+
+//         dispatch({
+//             type: PLAYER_ONE_MOVED,
+//             payload:
+//             positionX,
+//             positionY,
+//             velocityX,
+//             velocityY
+//         })
+        
+//     })
+// }
