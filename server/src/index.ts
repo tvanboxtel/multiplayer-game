@@ -23,13 +23,16 @@ io.on('connection', function (socket) {
     console.log(`User ${socket.id} just connected`)
 
     socket.on('movePlayer1', state => {
-        // console.log(state)
         io.emit('playerOneMoved', state)
     })
 
     socket.on('movePlayer2', state => {
-        // console.log(state)
         io.emit('playerTwoMoved', state)
+    })
+
+      socket.on('updatePuckMove', state => {
+        //   console.log(state)
+        io.emit('puckHasMoved', state)
     })
 
 
