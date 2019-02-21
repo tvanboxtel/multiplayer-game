@@ -1,4 +1,5 @@
 import { MOVE_PUCK } from '../actions/puck'
+import { PUCK_HAS_MOVED } from '../actions/puck'
 import { WIDTH, HEIGHT } from "../components/PlayingFieldContainer";
 
 const puck = {
@@ -16,6 +17,11 @@ const puck = {
 export default (state = puck, action = {}) => {
     switch (action.type) {
         case MOVE_PUCK:
+            return {
+                ...state,
+                ...action.payload
+            }
+        case PUCK_HAS_MOVED:
             return {
                 ...state,
                 ...action.payload
