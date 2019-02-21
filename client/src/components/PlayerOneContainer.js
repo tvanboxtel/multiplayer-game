@@ -13,17 +13,15 @@ const keys = [],
 class PlayerOneContainer extends React.Component {
 
     move = () => {
-
-        this.props.movePlayerOne({ velocityX: this.props.playerOne.velocityX * this.props.playerOne.frictionX })
-        this.props.movePlayerOne({ velocityY: this.props.playerOne.velocityY * this.props.playerOne.frictionY })
-
-
-        this.props.movePlayerOne({ positionX: this.props.playerOne.positionX + this.props.playerOne.velocityX })
-        this.props.movePlayerOne({ positionY: this.props.playerOne.positionY + this.props.playerOne.velocityY })
+        this.props.movePlayerOne({
+            positionX: this.props.playerOne.positionX + this.props.playerOne.velocityX,
+            positionY: this.props.playerOne.positionY + this.props.playerOne.velocityY,
+            velocityX: this.props.playerOne.velocityX * this.props.playerOne.frictionX,
+            velocityY: this.props.playerOne.velocityY * this.props.playerOne.frictionY
+        })
     }
 
     moveController = (event) => {
-
         keys[event.keyCode] = true
 
         // Up
@@ -31,6 +29,7 @@ class PlayerOneContainer extends React.Component {
             if (this.props.playerOne.positionY > 0 + this.props.playerOne.puckSize) {
                 this.props.movePlayerOne({ velocityY: this.props.playerOne.velocityY - this.props.playerOne.acceleration })
                 this.move()
+                this.mirrorMode()
             }
         }
 
@@ -39,6 +38,7 @@ class PlayerOneContainer extends React.Component {
             if (this.props.playerOne.positionY < MAX_Y) {
                 this.props.movePlayerOne({ velocityY: this.props.playerOne.velocityY + this.props.playerOne.acceleration })
                 this.move()
+                this.mirrorMode()
             }
         }
 
@@ -47,6 +47,7 @@ class PlayerOneContainer extends React.Component {
             if (this.props.playerOne.positionX < boardCenterX - this.props.playerOne.puckSize) {
                 this.props.movePlayerOne({ velocityX: this.props.playerOne.velocityX + this.props.playerOne.acceleration })
                 this.move()
+                this.mirrorMode()
             }
         }
 
@@ -55,6 +56,7 @@ class PlayerOneContainer extends React.Component {
             if (this.props.playerOne.positionX > 0 + this.props.playerOne.puckSize) {
                 this.props.movePlayerOne({ velocityX: this.props.playerOne.velocityX - this.props.playerOne.acceleration })
                 this.move()
+                this.mirrorMode()
             }
         }
     }
@@ -65,8 +67,9 @@ class PlayerOneContainer extends React.Component {
     }
 
     mirrorMode = () => {
-            this.props.movePlayer1(this.props.playerOne.positionX, this.props.playerOne.positionY, this.props.playerOne.velocityX, this.props.playerOne.velocityY)
+        this.props.movePlayer1(this.props.playerOne.positionX, this.props.playerOne.positionY, this.props.playerOne.velocityX, this.props.playerOne.velocityY)
     }
+
 
     // used to be ComponentWillMount
     componentDidMount() {
@@ -74,15 +77,17 @@ class PlayerOneContainer extends React.Component {
         window.addEventListener('keydown', this.tester)
         window.addEventListener('keyup', this.keysReleased)
         this.animate()
+        this.mirrorMode()
     }
 
     animate = () => {
         requestAnimationFrame(this.animate)
         this.move()
-        this.mirrorMode()
     }
 
     keepPlayerInsideField = () => {
+
+
         // X-axis borders
         if (this.props.playerOne.positionX > (boardCenterX - this.props.playerOne.puckSize)) {
             this.props.movePlayerOne({

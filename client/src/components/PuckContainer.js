@@ -13,11 +13,12 @@ class Puck extends PureComponent {
 
     move = () => {
 
-        this.props.movePuck({ velocityX: this.props.puck.velocityX * this.props.puck.frictionX })
-        this.props.movePuck({ velocityY: this.props.puck.velocityY * this.props.puck.frictionY })
-
-        this.props.movePuck({ positionX: this.props.puck.positionX + this.props.puck.velocityX })
-        this.props.movePuck({ positionY: this.props.puck.positionY + this.props.puck.velocityY })
+        this.props.movePuck({
+            velocityX: this.props.puck.velocityX * this.props.puck.frictionX,
+            velocityY: this.props.puck.velocityY * this.props.puck.frictionY,
+            positionX: this.props.puck.positionX + this.props.puck.velocityX,
+            positionY: this.props.puck.positionY + this.props.puck.velocityY
+        })
     }
 
     componentDidMount() {

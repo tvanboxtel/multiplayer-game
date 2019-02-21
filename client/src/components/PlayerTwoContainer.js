@@ -14,13 +14,12 @@ class PlayerTwoContainer extends PureComponent {
 
 
     move = () => {
-
-        this.props.movePlayerTwo({ velocityX: this.props.playerTwo.velocityX * this.props.playerTwo.frictionX })
-        this.props.movePlayerTwo({ velocityY: this.props.playerTwo.velocityY * this.props.playerTwo.frictionY })
-
-
-        this.props.movePlayerTwo({ positionX: this.props.playerTwo.positionX + this.props.playerTwo.velocityX })
-        this.props.movePlayerTwo({ positionY: this.props.playerTwo.positionY + this.props.playerTwo.velocityY })
+        this.props.movePlayerTwo({
+            velocityX: this.props.playerTwo.velocityX * this.props.playerTwo.frictionX,
+            velocityY: this.props.playerTwo.velocityY * this.props.playerTwo.frictionY,
+            positionX: this.props.playerTwo.positionX + this.props.playerTwo.velocityX,
+            positionY: this.props.playerTwo.positionY + this.props.playerTwo.velocityY
+        })
     }
 
     moveController = (event) => {
@@ -48,7 +47,7 @@ class PlayerTwoContainer extends PureComponent {
             if (this.props.playerTwo.positionX < WIDTH - this.props.playerTwo.puckSize) {
                 this.props.movePlayerTwo({ velocityX: this.props.playerTwo.velocityX + this.props.playerTwo.acceleration })
                 this.move()
-            } 
+            }
         }
 
         // Left, decrease acceleration
@@ -56,7 +55,7 @@ class PlayerTwoContainer extends PureComponent {
             if (this.props.playerTwo.positionX > boardCenterX + this.props.playerTwo.puckSize) {
                 this.props.movePlayerTwo({ velocityX: this.props.playerTwo.velocityX - this.props.playerTwo.acceleration })
                 this.move()
-            } 
+            }
         }
 
     }
@@ -71,12 +70,12 @@ class PlayerTwoContainer extends PureComponent {
         window.addEventListener('keyup', this.keysReleased)
         this.animate()
     }
-        animate = () => {
-            requestAnimationFrame(this.animate)
-            this.move()
-        }
+    animate = () => {
+        requestAnimationFrame(this.animate)
+        this.move()
+    }
 
-    keepPlayerInsideField  = ()  => {
+    keepPlayerInsideField = () => {
         // X-axis borders
         if (this.props.playerTwo.positionX < (boardCenterX + this.props.playerTwo.puckSize)) {
             this.props.movePlayerTwo({
@@ -87,7 +86,7 @@ class PlayerTwoContainer extends PureComponent {
         }
         if (this.props.playerTwo.positionX > (MAX_X - this.props.playerTwo.puckSize)) {
             this.props.movePlayerTwo({
-                positionX : MAX_X - this.props.playerTwo.puckSize,
+                positionX: MAX_X - this.props.playerTwo.puckSize,
                 velocityX: -this.props.playerTwo.velocityX * 0.75
 
             })
@@ -102,7 +101,7 @@ class PlayerTwoContainer extends PureComponent {
         }
         if (this.props.playerTwo.positionY < (0 + this.props.playerTwo.puckSize)) {
             this.props.movePlayerTwo({
-                positionY : 0 + this.props.playerTwo.puckSize,
+                positionY: 0 + this.props.playerTwo.puckSize,
                 velocityY: -this.props.playerTwo.velocityY * 0.75
 
             })
