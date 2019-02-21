@@ -18,11 +18,18 @@ useKoaServer(app, {
     ],
 })
 
-io.on('connection', function(socket) {
-    
+let testOne = {}
+
+io.on('connection', function (socket) {
+
     console.log(`User ${socket.id} just connected`)
 
-    io.emit('chat', 'Test Message')
+    socket.on('addPlayerOne', state => {
+        console.log(state)
+        // state.testOne = {testOne: 1}
+        // console.log(testOne)
+        io.emit('updateTest', testOne)
+    })
 
     socket.on('disconnect', () => {
         console.log(`User ${socket.id} just disconnected`)
