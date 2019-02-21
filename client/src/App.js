@@ -5,13 +5,8 @@ import Puck from './components/PuckContainer'
 import PlayerOneContainer from './components/PlayerOneContainer'
 import PlayerTwoContainer from './components/PlayerTwoContainer'
 import { Stage, Layer } from "react-konva";
-import openSocket from 'socket.io-client'
-
 import { Provider } from 'react-redux'
 import store from './store'
-
-const port = process.env.PORT || 'http://localhost:4000'
-openSocket(port)
 
 export default class App extends Component {
 
