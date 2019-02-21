@@ -5,25 +5,23 @@ export const WIDTH = window.innerWidth / 2;
 export const HEIGHT = window.innerHeight / 2;
 
 
+const imageUrl = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.iSZhCBEI6zB8PWdWJc_tJgHaJQ%26pid%3D15.1&f=1"
 export default class PlayingFieldContainer extends PureComponent {
 
-  // state = {
-  //   image: null
-  // }
-
-  // componentDidMount = () => {
-  //   this.setImage()
-  // }
-
-  // setImage() {
-  //   const image = new window.Image()
-  //   image.src = 'https://imgur.com/gallery/dmLAJX2'
-  //   image.onload = () => {
-  //     this.setState({
-  //       image: image
-  //     })
-  //   }
-  // }
+  constructor(...args) {
+    super(...args);
+    const image = new window.Image()
+    image.onload = () => {
+      this.setState({
+        fillPatternImage: image
+      })
+    }
+    image.src = imageUrl
+    this.state = {
+      color: 'green',
+      fillPatternImage: null
+    }
+  }
 
   render() {
 
@@ -43,8 +41,8 @@ export default class PlayingFieldContainer extends PureComponent {
           y={2}
           width={WIDTH - 4}
           height={HEIGHT - 4}
-          fill="white"
-          // image={this.state.image}
+          // fill="white"
+          fillPatternImage={this.state.fillPatternImage}
         />
       </Group>
 
@@ -52,16 +50,3 @@ export default class PlayingFieldContainer extends PureComponent {
     );
   }
 }
-
-
-// const image = new window.Image()
-// image.onload = () => {
-//   this.setState({
-//     fillPatternImage: image
-//   })
-// }
-// image.src = 'http://i.imgur.com/A6H6xHF.png';
-// this.state = {
-//   color: 'green',
-//   fillPatternImage: null
-// };
