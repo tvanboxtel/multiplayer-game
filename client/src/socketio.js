@@ -1,14 +1,15 @@
-import openSocket from 'socket.io-client'
-const socket = openSocket('http://localhost:4000')
+// import openSocket from 'socket.io-client'
+// const socket = openSocket('http://localhost:4000')
 
 
-function connect(cb) {
-    socket.on('chat', (message) => {
-        cb(message)
-    })
+// export function testConnect(cb) {
+//     socket.on('chat', (message) => {
+//         console.log(cb(message))
+//     })
 
-}
-// export { connect }
-// const socket = new SocketIO()
+// }
 
-// SocketIo(socket)
+// // export { connect }
+// // const socket = new SocketIO()
+
+// // SocketIo(socket)

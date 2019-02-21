@@ -12,7 +12,3 @@ export const movePuck = (positionX, positionY, velocityX, velocityY) => {
       velocityY
     }
   }
-
-// export const updatePlayerPosition = (position) => {
-
-// }

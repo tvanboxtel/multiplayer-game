@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 import { Circle } from "react-konva";
-import { movePlayerOne } from '../actions/player'
+import { movePlayerOne, addPlayerOne } from '../actions/player'
 import { connect } from 'react-redux'
+
 
 const keys = [],
     MIN_Y = 52,
@@ -63,9 +64,16 @@ class PlayerOneContainer extends React.Component {
         keys[event.keyCode] = false;
     }
 
+    tester = () => {
+        if (keys[65]) {
+                this.props.addPlayerOne(this.props.playerOne.positionX, this.props.playerOne.positionY, this.props.playerOne.velocityX, this.props.playerOne.velocityY)
+        }
+    }
+
     // used to be ComponentWillMount
     componentDidMount() {
         window.addEventListener('keydown', this.moveController)
+        window.addEventListener('keydown', this.tester)
         window.addEventListener('keyup', this.keysReleased)
         this.animate()
     }
@@ -137,7 +145,7 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, { movePlayerOne })(PlayerOneContainer)
+export default connect(mapStateToProps, { movePlayerOne, addPlayerOne })(PlayerOneContainer)
 
 // Potential border stoppage
 // else {
