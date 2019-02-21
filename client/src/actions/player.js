@@ -20,32 +20,39 @@ export const movePlayer1 = (positionX, positionY, velocityX, velocityY) => (disp
         velocityY
     })
 
-    socket.on('playerOneMoved', (res) => {
-        console.log(res)
+    socket.on('playerOneMoved', (positionX, positionY, velocityX, velocityY) => {
+        // let { positionX, positionY, velocityX, velocityY } = res
+
         dispatch({
             type: PLAYER_ONE_MOVED,
+            payload:
+            positionX,
+            positionY,
+            velocityX,
+            velocityY
         })
+        
     })
 }
 
-    export const movePlayerOne = (positionX, positionY, velocityX, velocityY) => {
-        return {
-            type: MOVE_PLAYER_ONE,
-            payload:
-                positionX,
-            positionY,
-            velocityX,
-            velocityY
-        }
+export const movePlayerOne = (positionX, positionY, velocityX, velocityY) => {
+    return {
+        type: MOVE_PLAYER_ONE,
+        payload:
+            positionX,
+        positionY,
+        velocityX,
+        velocityY
     }
+}
 
-    export const movePlayerTwo = (positionX, positionY, velocityX, velocityY) => {
-        return {
-            type: MOVE_PLAYER_TWO,
-            payload:
-                positionX,
-            positionY,
-            velocityX,
-            velocityY
-        }
+export const movePlayerTwo = (positionX, positionY, velocityX, velocityY) => {
+    return {
+        type: MOVE_PLAYER_TWO,
+        payload:
+            positionX,
+        positionY,
+        velocityX,
+        velocityY
     }
+}

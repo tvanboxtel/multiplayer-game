@@ -1,4 +1,4 @@
-import { MOVE_PLAYER_ONE } from '../actions/player'
+import { MOVE_PLAYER_ONE, PLAYER_ONE_MOVED } from '../actions/player'
 import { WIDTH, HEIGHT } from "../components/PlayingFieldContainer";
 
 
@@ -20,6 +20,12 @@ export default (state = playerOne, action = {}) => {
                 ...state,
                 ...action.payload
             }
+        case PLAYER_ONE_MOVED:
+        console.log(action.payload)
+        return {
+            ...state,
+            ...action.payload
+        }
         default:
             return state;
     }
