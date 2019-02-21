@@ -7,7 +7,6 @@ import PlayerTwoContainer from './components/PlayerTwoContainer'
 import { Stage, Layer } from "react-konva";
 import { Provider } from 'react-redux'
 import store from './store'
-
 export default class App extends Component {
 
   render() {
