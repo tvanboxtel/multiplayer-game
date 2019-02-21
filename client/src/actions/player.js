@@ -7,42 +7,45 @@ const socket = openSocket(port)
 export const ADD_PLAYER_ONE = 'ADD_PLAYER_ONE'
 export const ADD_SCORE = 'ADD_SCORE'
 
+export const PLAYER_ONE_MOVED = 'PLAYER_ONE_MOVED'
 
 export const MOVE_PLAYER_ONE = 'MOVE_PLAYER_ONE'
 export const MOVE_PLAYER_TWO = 'MOVE_PLAYER_TWO'
 
-export const addPlayerOne = (positionX, positionY, velocityX, velocityY) => (dispatch) => {
-    socket.emit('addPlayerOne', {
+export const movePlayer1 = (positionX, positionY, velocityX, velocityY) => (dispatch) => {
+    socket.emit('movePlayer1', {
         positionX,
         positionY,
         velocityX,
         velocityY
     })
 
-    dispatch({
-        type: ADD_PLAYER_ONE,
-        payload: Number
+    socket.on('playerOneMoved', (res) => {
+        console.log(res)
+        dispatch({
+            type: PLAYER_ONE_MOVED,
+        })
     })
 }
 
-export const movePlayerOne = (positionX, positionY, velocityX, velocityY) => {
-    return {
-        type: MOVE_PLAYER_ONE,
-        payload:
-            positionX,
-        positionY,
-        velocityX,
-        velocityY
+    export const movePlayerOne = (positionX, positionY, velocityX, velocityY) => {
+        return {
+            type: MOVE_PLAYER_ONE,
+            payload:
+                positionX,
+            positionY,
+            velocityX,
+            velocityY
+        }
     }
-}
 
-export const movePlayerTwo = (positionX, positionY, velocityX, velocityY) => {
-    return {
-        type: MOVE_PLAYER_TWO,
-        payload:
-            positionX,
-        positionY,
-        velocityX,
-        velocityY
+    export const movePlayerTwo = (positionX, positionY, velocityX, velocityY) => {
+        return {
+            type: MOVE_PLAYER_TWO,
+            payload:
+                positionX,
+            positionY,
+            velocityX,
+            velocityY
+        }
     }
-}

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 import { Circle } from "react-konva";
-import { movePlayerOne, addPlayerOne } from '../actions/player'
+import { movePlayerOne, movePlayer1 } from '../actions/player'
 import { connect } from 'react-redux'
 
 
@@ -68,7 +68,7 @@ class PlayerOneContainer extends React.Component {
 
     tester = () => {
         if (keys[65]) {
-                this.props.addPlayerOne(this.props.playerOne.positionX, this.props.playerOne.positionY, this.props.playerOne.velocityX, this.props.playerOne.velocityY)
+                this.props.movePlayer1(this.props.playerOne.positionX, this.props.playerOne.positionY, this.props.playerOne.velocityX, this.props.playerOne.velocityY)
         }
     }
 
@@ -147,7 +147,7 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, { movePlayerOne, addPlayerOne })(PlayerOneContainer)
+export default connect(mapStateToProps, { movePlayerOne, movePlayer1 })(PlayerOneContainer)
 
 // Potential border stoppage
 // else {
