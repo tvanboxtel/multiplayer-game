@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
-import { movePlayerTwo } from '../actions/player'
+import { movePlayerTwo, movePlayer2 } from '../actions/player'
 import { connect } from 'react-redux'
 import { Circle } from "react-konva";
 
@@ -31,6 +31,7 @@ class PlayerTwoContainer extends PureComponent {
             if (this.props.playerTwo.positionY > 0 + this.props.playerTwo.puckSize) {
                 this.props.movePlayerTwo({ velocityY: this.props.playerTwo.velocityY - this.props.playerTwo.acceleration })
                 this.move()
+                this.mirrorMode()
             }
         }
 
@@ -39,6 +40,7 @@ class PlayerTwoContainer extends PureComponent {
             if (this.props.playerTwo.positionY < MAX_Y) {
                 this.props.movePlayerTwo({ velocityY: this.props.playerTwo.velocityY + this.props.playerTwo.acceleration })
                 this.move()
+                this.mirrorMode()
             }
         }
 
@@ -47,6 +49,7 @@ class PlayerTwoContainer extends PureComponent {
             if (this.props.playerTwo.positionX < WIDTH - this.props.playerTwo.puckSize) {
                 this.props.movePlayerTwo({ velocityX: this.props.playerTwo.velocityX + this.props.playerTwo.acceleration })
                 this.move()
+                this.mirrorMode()
             }
         }
 
@@ -55,6 +58,7 @@ class PlayerTwoContainer extends PureComponent {
             if (this.props.playerTwo.positionX > boardCenterX + this.props.playerTwo.puckSize) {
                 this.props.movePlayerTwo({ velocityX: this.props.playerTwo.velocityX - this.props.playerTwo.acceleration })
                 this.move()
+                this.mirrorMode()
             }
         }
 
@@ -64,11 +68,17 @@ class PlayerTwoContainer extends PureComponent {
     keysReleased = (event) => {
         keys[event.keyCode] = false;
     }
+
+    mirrorMode = () => {
+        this.props.movePlayer2(this.props.playerTwo.positionX, this.props.playerTwo.positionY, this.props.playerTwo.velocityX, this.props.playerTwo.velocityY)
+    }
+
     // used to be ComponentWillMount
     componentDidMount() {
         window.addEventListener('keydown', this.moveController)
         window.addEventListener('keyup', this.keysReleased)
         this.animate()
+        this.mirrorMode()
     }
     animate = () => {
         requestAnimationFrame(this.animate)
@@ -140,4 +150,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, { movePlayerTwo })(PlayerTwoContainer)
+export default connect(mapStateToProps, { movePlayerTwo , movePlayer2})(PlayerTwoContainer)

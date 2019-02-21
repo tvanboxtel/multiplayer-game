@@ -1,4 +1,5 @@
 import { MOVE_PLAYER_TWO } from '../actions/player'
+import { PLAYER_TWO_MOVED } from '../actions/player'
 import { WIDTH, HEIGHT } from "../components/PlayingFieldContainer";
 
 const playerTwo = {
@@ -17,6 +18,12 @@ const playerTwo = {
 export default (state = playerTwo, action = {}) => {
     switch (action.type) {
         case MOVE_PLAYER_TWO:
+            return {
+                ...state,
+                ...action.payload
+            }
+
+        case PLAYER_TWO_MOVED:
             return {
                 ...state,
                 ...action.payload
