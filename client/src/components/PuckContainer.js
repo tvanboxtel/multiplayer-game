@@ -83,12 +83,14 @@ class Puck extends PureComponent {
             distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY),
             addedRadius = player.puckSize + puck.puckSize
 
-   
+
         if (distance < addedRadius) {
             // all collision logic goes here    
             let angle = Math.atan2(distanceY, distanceX),
                 sin = Math.sin(angle),
                 cos = Math.cos(angle),
+
+
 
                 positionPuck = { positionX: 0, positionY: 0 },
                 positionPlayer = this.rotate(distanceX, distanceY, sin, cos, true),
