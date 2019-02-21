@@ -27,6 +27,12 @@ io.on('connection', function (socket) {
         io.emit('playerOneMoved', state)
     })
 
+    socket.on('movePlayer2', state => {
+        // console.log(state)
+        io.emit('playerTwoMoved', state)
+    })
+
+
     socket.on('disconnect', () => {
         console.log(`User ${socket.id} just disconnected`)
     })
