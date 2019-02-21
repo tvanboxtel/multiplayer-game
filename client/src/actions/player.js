@@ -1,6 +1,4 @@
 import openSocket from 'socket.io-client'
-import store from '../store';
-// import store from '../store';
 const port = process.env.PORT || 'http://localhost:4000'
 const socket = openSocket(port)
 
@@ -21,7 +19,6 @@ export const movePlayer1 = (positionX, positionY, velocityX, velocityY) => (disp
     })
 
     socket.on('playerOneMoved', (positionX, positionY, velocityX, velocityY) => {
-        // let { positionX, positionY, velocityX, velocityY } = res
 
         dispatch({
             type: PLAYER_ONE_MOVED,
@@ -56,3 +53,26 @@ export const movePlayerTwo = (positionX, positionY, velocityX, velocityY) => {
         velocityY
     }
 }
+
+
+// export const movePlayer1 = (positionX, positionY, velocityX, velocityY) => (dispatch) => {
+//     socket.emit('movePlayer1', {
+//         positionX,
+//         positionY,
+//         velocityX,
+//         velocityY
+//     })
+
+//     socket.on('playerOneMoved', (positionX, positionY, velocityX, velocityY) => {
+
+//         dispatch({
+//             type: PLAYER_ONE_MOVED,
+//             payload:
+//             positionX,
+//             positionY,
+//             velocityX,
+//             velocityY
+//         })
+        
+//     })
+// }
