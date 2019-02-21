@@ -22,9 +22,10 @@ export default (state = puck, action = {}) => {
                 ...action.payload
             }
         case PUCK_HAS_MOVED:
+        console.log(action.payload)
             return {
                 ...state,
-                ...action.payload
+                // ...action.payload
             }
         default:
             return state;
