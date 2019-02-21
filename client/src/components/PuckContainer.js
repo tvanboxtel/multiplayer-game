@@ -14,15 +14,16 @@ class Puck extends PureComponent {
     move = () => {
 
         this.props.movePuck({
-            velocityX: this.props.puck.velocityX * this.props.puck.frictionX,
-            velocityY: this.props.puck.velocityY * this.props.puck.frictionY,
             positionX: this.props.puck.positionX + this.props.puck.velocityX,
-            positionY: this.props.puck.positionY + this.props.puck.velocityY
+            positionY: this.props.puck.positionY + this.props.puck.velocityY,
+            velocityX: this.props.puck.velocityX * this.props.puck.frictionX,
+            velocityY: this.props.puck.velocityY * this.props.puck.frictionY
         })
     }
 
     componentDidMount() {
         this.animate()
+        // this.mirrorMode()
     }
 
     animate = () => {
@@ -90,6 +91,9 @@ class Puck extends PureComponent {
 
 
         if (distance < addedRadius) {
+            // this.mirrorMode()
+
+
             // all collision logic goes here    
             let angle = Math.atan2(distanceY, distanceX),
                 sin = Math.sin(angle),
@@ -131,7 +135,6 @@ class Puck extends PureComponent {
 
             player.velocityX = velocityPlayerForce.positionX;
             player.velocityY = velocityPlayerForce.positionY;
-
         }
     }
 
@@ -168,4 +171,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, { movePuck })(Puck)
+export default connect(mapStateToProps, { movePuck, updatePuckMove })(Puck)
