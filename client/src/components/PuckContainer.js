@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { Circle } from "react-konva";
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
-import { movePuck } from '../actions/puck'
+import { movePuck, updatePuckMove } from '../actions/puck'
 import { connect } from 'react-redux'
 
 const
@@ -64,6 +64,10 @@ class Puck extends PureComponent {
         this.checkCollision(this.props.playerOne, this.props.puck)
         this.checkCollision(this.props.playerTwo, this.props.puck)
 
+    }
+
+    mirrorMode = () => {
+        this.props.updatePuckMove(this.props.puck.positionX, this.props.puck.positionY, this.props.puck.velocityX, this.props.puck.velocityY)
     }
 
     rotate(positionX, positionY, sin, cos, reverse) {
