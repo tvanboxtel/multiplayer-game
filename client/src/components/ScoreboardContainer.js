@@ -7,7 +7,7 @@ class ScoreboardContainer extends PureComponent {
 
 
     render() {
-        console.log(this.props.playerOne.positionX)
+        // console.log(this.props.playerOne.positionX)
         return (
             <Group>
                 <Rect

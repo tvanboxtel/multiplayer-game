@@ -1,6 +1,7 @@
 import { MOVE_PLAYER_ONE } from '../actions/player'
 import { PLAYER_ONE_MOVED } from '../actions/player'
 import { WIDTH, HEIGHT } from "../components/PlayingFieldContainer";
+import { PUCK_HIT_GOAL_ONE } from '../actions/puck'
 
 
 const playerOne = {
@@ -13,7 +14,7 @@ const playerOne = {
     frictionY: 1,
     acceleration: 1,
     puckSize: 52,
-    score: '0'
+    score: 0
 };
 
 export default (state = playerOne, action = {}) => {
@@ -28,6 +29,12 @@ export default (state = playerOne, action = {}) => {
                 ...state,
                 ...action.payload
             }
+        case PUCK_HIT_GOAL_ONE:
+            return {
+                ...state,
+                ...action.payload
+            }
+
         default:
             return state;
     }
