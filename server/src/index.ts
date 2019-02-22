@@ -41,6 +41,9 @@ io.on('connection', function (socket) {
     socket.on('puckHitGoalTwo', score => {
         io.emit('updateScoreTwo', score)
     })
+    socket.on('resetPuck', score => {
+        io.emit('puckHasReset', score)
+    })
 
 
     socket.on('disconnect', () => {
