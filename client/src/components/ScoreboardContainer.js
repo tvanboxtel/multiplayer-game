@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { connect } from 'react-redux'
-import { Rect, Group, Text } from "react-konva";
+import { Rect, Group } from "react-konva";
 
 const scoreURL = 'https://i.imgur.com/fizcCwD.jpg'
 

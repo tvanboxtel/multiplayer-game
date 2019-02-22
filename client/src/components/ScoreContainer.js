@@ -16,7 +16,7 @@ class ScoreboardContainer extends PureComponent {
                 fontSize={30}
                 fill='white'
                 fontFamily='Russo One'
-                text={this.props.playerOne.score}
+                text={this.props.playerOneScore}
                 align="middle"
                 verticalAlign='middle'
                 justify='center'
@@ -29,7 +29,7 @@ class ScoreboardContainer extends PureComponent {
                 fontSize={30}
                 fill='white'
                 fontFamily='Russo One'
-                text={this.props.playerTwo.score}
+                text={this.props.playerTwoScore}
 
                 justify='center'
                 width={100}
