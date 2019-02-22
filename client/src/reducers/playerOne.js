@@ -12,7 +12,8 @@ const playerOne = {
     frictionX: 1,
     frictionY: 1,
     acceleration: 1,
-    puckSize: 52
+    puckSize: 52,
+    score: '0'
 };
 
 export default (state = playerOne, action = {}) => {
