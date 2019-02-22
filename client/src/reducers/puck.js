@@ -1,5 +1,5 @@
 import { MOVE_PUCK } from '../actions/puck'
-import { PUCK_HAS_MOVED } from '../actions/puck'
+import { PUCK_HAS_MOVED, PUCK_HAS_RESET } from '../actions/puck'
 import { WIDTH, HEIGHT } from "../components/PlayingFieldContainer";
 
 const puck = {
@@ -23,11 +23,17 @@ export default (state = puck, action = {}) => {
                 ...action.payload
             }
         case PUCK_HAS_MOVED:
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state,
                 // ...action.payload
             }
+        case PUCK_HAS_RESET:
+        console.log(action.payload)
+        return {
+            ...state,
+            ...action.payload
+        }
         default:
             return state;
     }
