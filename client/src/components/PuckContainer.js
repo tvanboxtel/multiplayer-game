@@ -37,29 +37,39 @@ class Puck extends PureComponent {
             this.props.movePuck({
                 positionX: MAX_X - this.props.puck.puckSize,
                 velocityX: -this.props.puck.velocityX
-            })
-            this.scoredGoalOne(this.props.playerOne.score + 1)
-            this.resetPuckPosition(
-                this.props.puck.positionX = WIDTH / 2,
-                this.props.puck.positionY = HEIGHT / 2,
-                this.props.puck.velocityX = 0,
-                this.props.puck.velocityY = 0,
-            )
-        }
-        if (this.props.puck.positionX < (0 + this.props.puck.puckSize)) {
-            this.props.movePuck({
-                positionX: 0 + this.props.puck.puckSize,
-                velocityX: -this.props.puck.velocityX
-            })
+            })}
+        if ((this.props.puck.positionX > (MAX_X - this.props.puck.puckSize))
+        && (this.props.puck.positionY > (MAX_Y / 3) - this.props.puck.puckSize)
+        && (this.props.puck.positionY < (MAX_Y / 3 * 2) - this.props.puck.puckSize))  {
+
             this.scoredGoalTwo(this.props.playerTwo.score + 1)
             this.resetPuckPosition(
                 this.props.puck.positionX = WIDTH / 2,
                 this.props.puck.positionY = HEIGHT / 2,
                 this.props.puck.velocityX = 0,
                 this.props.puck.velocityY = 0,
-            )
-
+            )      
+        
         }
+        
+        if (this.props.puck.positionX < (0 + this.props.puck.puckSize)) {
+            this.props.movePuck({
+                positionX: 0 + this.props.puck.puckSize,
+                velocityX: -this.props.puck.velocityX
+            })}
+        if ((this.props.puck.positionX < (0 + this.props.puck.puckSize))
+        && (this.props.puck.positionY > (MAX_Y / 3) - this.props.puck.puckSize)
+        && (this.props.puck.positionY < (MAX_Y / 3 * 2) - this.props.puck.puckSize)) {
+
+            this.scoredGoalOne(this.props.playerOne.score + 1)
+            this.resetPuckPosition(
+                this.props.puck.positionX = WIDTH / 2,
+                this.props.puck.positionY = HEIGHT / 2,
+                this.props.puck.velocityX = 0,
+                this.props.puck.velocityY = 0,
+                )
+        }
+                      
         // Y-axis borders
         if (this.props.puck.positionY > MAX_Y - this.props.puck.puckSize) {
             this.props.movePuck({

@@ -29,7 +29,6 @@ export default (state = puck, action = {}) => {
                 // ...action.payload
             }
         case PUCK_HAS_RESET:
-        console.log(action.payload)
         return {
             ...state,
             ...action.payload
