@@ -16,7 +16,15 @@ routing_controllers_1.useKoaServer(app, {
 });
 exports.io.on('connection', function (socket) {
     console.log(`User ${socket.id} just connected`);
-    exports.io.emit('chat', 'Test Message');
+    socket.on('movePlayer1', state => {
+        exports.io.emit('playerOneMoved', state);
+    });
+    socket.on('movePlayer2', state => {
+        exports.io.emit('playerTwoMoved', state);
+    });
+    socket.on('updatePuckMove', state => {
+        exports.io.emit('puckHasMoved', state);
+    });
     socket.on('disconnect', () => {
         console.log(`User ${socket.id} just disconnected`);
     });

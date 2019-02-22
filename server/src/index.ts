@@ -35,6 +35,13 @@ io.on('connection', function (socket) {
         io.emit('puckHasMoved', state)
     })
 
+    socket.on('puckHitGoalOne', score => {
+        io.emit('updateScoreOne', score)
+    })
+    socket.on('puckHitGoalTwo', score => {
+        io.emit('updateScoreTwo', score)
+    })
+
 
     socket.on('disconnect', () => {
         console.log(`User ${socket.id} just disconnected`)
