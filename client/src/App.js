@@ -18,6 +18,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+        <h1>Air Hockey</h1>
           <Stage width={950} height={475}>
             <Provider store={store}>
               <Layer>
@@ -28,7 +29,7 @@ export default class App extends Component {
               </Layer>
             </Provider>
           </Stage>
-          <Stage width={500} height={100}>
+          <Stage width={500} height={150}>
             <Provider store={store}>
               <Layer>
                 <ScoreboardContainer />
