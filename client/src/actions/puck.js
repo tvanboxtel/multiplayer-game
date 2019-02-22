@@ -8,9 +8,6 @@ export const PUCK_HAS_RESET = 'PUCK_HAS_RESET'
 const port = process.env.PORT || 'http://localhost:4000'
 const socket = openSocket(port)
 
-
-// const baseUrl = 'http://localhost:4000'
-
 export const movePuck = (positionX, positionY, velocityX, velocityY) => {
   return {
     type: MOVE_PUCK,
@@ -21,29 +18,6 @@ export const movePuck = (positionX, positionY, velocityX, velocityY) => {
     velocityY
   }
 }
-
-export const updatePuckMove = (positionX, positionY, velocityX, velocityY) => (dispatch) => {
-  socket.emit('updatePuckMove', {
-    positionX,
-    positionY,
-    velocityX,
-    velocityY
-  })
-
-  socket.on('puckHasMoved', (positionX, positionY, velocityX, velocityY) => {
-
-    dispatch({
-      type: PUCK_HAS_MOVED,
-      payload:
-        positionX,
-      positionY,
-      velocityX,
-      velocityY
-    })
-
-  })
-}
-
 
 export const puckHitGoalOne = (score) => (dispatch) => {
   socket.emit('puckHitGoalOne', {
