@@ -4,7 +4,7 @@ import { Group, Rect } from "react-konva";
 export const WIDTH = 950;
 export const HEIGHT = 475;
 
-const imageUrl = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.iSZhCBEI6zB8PWdWJc_tJgHaJQ%26pid%3D15.1&f=1"
+const imageUrl = "https://i.imgur.com/B6llTuF.jpg"
 
 export default class PlayingFieldContainer extends PureComponent {
 
