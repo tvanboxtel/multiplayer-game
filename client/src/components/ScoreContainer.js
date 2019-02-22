@@ -1,16 +1,12 @@
 import React, { PureComponent } from "react";
 import { connect } from 'react-redux'
 import { Text, Group } from "react-konva";
-export const WIDTH = window.innerWidth / 2;
-export const HEIGHT = window.innerHeight / 2;
 
 
 class ScoreboardContainer extends PureComponent {
 
 
     render() {
-        // console.log(this.props.playerOne.score)
-        // debugger
         return (
             <Group>
             <Text

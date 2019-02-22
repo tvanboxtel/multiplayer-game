@@ -10,8 +10,25 @@ const keys = [],
     MAX_X = WIDTH,
     boardCenterX = WIDTH / 2
 
+    const paddleTwoURL = 'https://i.imgur.com/sqOwggt.png'
+
+
 class PlayerTwoContainer extends PureComponent {
 
+    constructor(...args) {
+        super(...args);
+        const image = new window.Image()
+        image.onload = () => {
+          this.setState({
+            fillPatternImage: image
+          })
+        }
+        image.src = paddleTwoURL
+        this.state = {
+          color: 'green',
+          fillPatternImage: null
+        }
+      }
 
     move = () => {
         this.props.movePlayerTwo({
@@ -128,9 +145,10 @@ class PlayerTwoContainer extends PureComponent {
                 x={this.props.playerTwo.positionX}
                 y={this.props.playerTwo.positionY}
                 radius={this.props.playerTwo.puckSize}
-                fill={'red'}
+                fillPatternImage={this.state.fillPatternImage}
+                fillPatternOffset={{ x: 73, y: 74 }}
                 stroke={'black'}
-                strokeWidth={3}
+                strokeWidth={2}
                 mass={this.props.playerTwo.mass}
                 velocityX={this.props.playerTwo.velocityX}
                 velocityY={this.props.playerTwo.velocityY}

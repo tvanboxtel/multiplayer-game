@@ -155,9 +155,9 @@ class Puck extends PureComponent {
                 x={this.props.puck.positionX}
                 y={this.props.puck.positionY}
                 radius={this.props.puck.puckSize}
-                fill={'grey'}
-                stroke={'black'}
-                strokeWidth={2}
+                fill='rgb(31,31,31)'
+                stroke='rgb(57,57,57)'
+                strokeWidth={5}
                 mass={this.props.puck.mass}
                 velocityX={this.props.puck.velocityX}
                 velocityY={this.props.puck.velocityY}
