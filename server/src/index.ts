@@ -18,11 +18,23 @@ useKoaServer(app, {
     ],
 })
 
-io.on('connection', function(socket) {
-    
+io.on('connection', function (socket) {
+
     console.log(`User ${socket.id} just connected`)
 
-    io.emit('chat', 'Test Message')
+    socket.on('movePlayer1', state => {
+        io.emit('playerOneMoved', state)
+    })
+
+    socket.on('movePlayer2', state => {
+        io.emit('playerTwoMoved', state)
+    })
+
+      socket.on('updatePuckMove', state => {
+        //   console.log(state)
+        io.emit('puckHasMoved', state)
+    })
+
 
     socket.on('disconnect', () => {
         console.log(`User ${socket.id} just disconnected`)

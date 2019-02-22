@@ -1,37 +1,25 @@
 import React, { PureComponent } from "react";
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
+import { movePlayerTwo, movePlayer2 } from '../actions/player'
+import { connect } from 'react-redux'
 import { Circle } from "react-konva";
 
 const keys = [],
     MIN_Y = 52,
     MAX_Y = HEIGHT - MIN_Y,
     MAX_X = WIDTH,
-    boardCenterX = WIDTH / 2,
-    puckSize = 52;
+    boardCenterX = WIDTH / 2
 
-export default class PlayerTwoContainer extends PureComponent {
-    state = {
-        positionX: WIDTH / 1.25,
-        positionY: HEIGHT / 2,
-        // redundant?
-        // x: WIDTH / 5,
-        // y: HEIGHT / 2,
-        mass: 15,
-        velocityX: 0,
-        velocityY: 0,
-        frictionX: 1,
-        frictionY: 1,
-        acceleration: 1
-    };
+class PlayerTwoContainer extends PureComponent {
+
 
     move = () => {
-
-        this.setState({ velocityX: this.state.velocityX * this.state.frictionX })
-        this.setState({ velocityY: this.state.velocityY * this.state.frictionY })
-
-
-        this.setState({ positionX: this.state.positionX + this.state.velocityX })
-        this.setState({ positionY: this.state.positionY + this.state.velocityY })
+        this.props.movePlayerTwo({
+            velocityX: this.props.playerTwo.velocityX * this.props.playerTwo.frictionX,
+            velocityY: this.props.playerTwo.velocityY * this.props.playerTwo.frictionY,
+            positionX: this.props.playerTwo.positionX + this.props.playerTwo.velocityX,
+            positionY: this.props.playerTwo.positionY + this.props.playerTwo.velocityY
+        })
     }
 
     moveController = (event) => {
@@ -40,41 +28,37 @@ export default class PlayerTwoContainer extends PureComponent {
 
         // Up
         if (keys[38]) {
-            if (this.state.positionY > 0 + puckSize) {
-                this.setState({ velocityY: this.state.velocityY - this.state.acceleration })
+            if (this.props.playerTwo.positionY > 0 + this.props.playerTwo.puckSize) {
+                this.props.movePlayerTwo({ velocityY: this.props.playerTwo.velocityY - this.props.playerTwo.acceleration })
                 this.move()
-            } else {
-                this.setState({ velocityY: 0, velocityX: 0 })
+                this.mirrorMode()
             }
         }
 
         // // Down
         if (keys[40]) {
-            if (this.state.positionY < MAX_Y) {
-                this.setState({ velocityY: this.state.velocityY + this.state.acceleration })
+            if (this.props.playerTwo.positionY < MAX_Y) {
+                this.props.movePlayerTwo({ velocityY: this.props.playerTwo.velocityY + this.props.playerTwo.acceleration })
                 this.move()
-            } else {
-                this.setState({ velocityY: 0, velocityX: 0 })
+                this.mirrorMode()
             }
         }
 
         // Right
         if (keys[39]) {
-            if (this.state.positionX < WIDTH - puckSize) {
-                this.setState({ velocityX: this.state.velocityX + this.state.acceleration })
+            if (this.props.playerTwo.positionX < WIDTH - this.props.playerTwo.puckSize) {
+                this.props.movePlayerTwo({ velocityX: this.props.playerTwo.velocityX + this.props.playerTwo.acceleration })
                 this.move()
-            } else {
-                this.setState({ velocityX: 0, velocityY: 0 })
+                this.mirrorMode()
             }
         }
 
         // Left, decrease acceleration
         if (keys[37]) {
-            if (this.state.positionX > boardCenterX + puckSize) {
-                this.setState({ velocityX: this.state.velocityX - this.state.acceleration })
+            if (this.props.playerTwo.positionX > boardCenterX + this.props.playerTwo.puckSize) {
+                this.props.movePlayerTwo({ velocityX: this.props.playerTwo.velocityX - this.props.playerTwo.acceleration })
                 this.move()
-            } else {
-                this.setState({ velocityX: 0, velocityY: 0 })
+                this.mirrorMode()
             }
         }
 
@@ -84,45 +68,51 @@ export default class PlayerTwoContainer extends PureComponent {
     keysReleased = (event) => {
         keys[event.keyCode] = false;
     }
+
+    mirrorMode = () => {
+        this.props.movePlayer2(this.props.playerTwo.positionX, this.props.playerTwo.positionY, this.props.playerTwo.velocityX, this.props.playerTwo.velocityY)
+    }
+
     // used to be ComponentWillMount
     componentDidMount() {
         window.addEventListener('keydown', this.moveController)
         window.addEventListener('keyup', this.keysReleased)
         this.animate()
+        this.mirrorMode()
     }
-        animate = () => {
-            requestAnimationFrame(this.animate)
-            this.move()
-        }
+    animate = () => {
+        requestAnimationFrame(this.animate)
+        this.move()
+    }
 
-    keepPlayerInsideField  = ()  => {
+    keepPlayerInsideField = () => {
         // X-axis borders
-        if (this.state.positionX < (boardCenterX + puckSize)) {
-            this.setState({
-                positionX: boardCenterX + puckSize,
-                velocityX: -this.state.velocityX * 0.75
+        if (this.props.playerTwo.positionX < (boardCenterX + this.props.playerTwo.puckSize)) {
+            this.props.movePlayerTwo({
+                positionX: boardCenterX + this.props.playerTwo.puckSize,
+                velocityX: -this.props.playerTwo.velocityX * 0.75
 
             })
         }
-        if (this.state.positionX > (MAX_X - puckSize)) {
-            this.setState({
-                positionX : MAX_X - puckSize,
-                velocityX: -this.state.velocityX * 0.75
+        if (this.props.playerTwo.positionX > (MAX_X - this.props.playerTwo.puckSize)) {
+            this.props.movePlayerTwo({
+                positionX: MAX_X - this.props.playerTwo.puckSize,
+                velocityX: -this.props.playerTwo.velocityX * 0.75
 
             })
         }
         // Y-axis borders
-        if (this.state.positionY > MAX_Y) {
-            this.setState({
+        if (this.props.playerTwo.positionY > MAX_Y) {
+            this.props.movePlayerTwo({
                 positionY: MAX_Y,
-                velocityY: -this.state.velocityY * 0.75
+                velocityY: -this.props.playerTwo.velocityY * 0.75
 
             })
         }
-        if (this.state.positionY < (0 + puckSize)) {
-            this.setState({
-                positionY : 0 + puckSize,
-                velocityY: -this.state.velocityY * 0.75
+        if (this.props.playerTwo.positionY < (0 + this.props.playerTwo.puckSize)) {
+            this.props.movePlayerTwo({
+                positionY: 0 + this.props.playerTwo.puckSize,
+                velocityY: -this.props.playerTwo.velocityY * 0.75
 
             })
         }
@@ -135,20 +125,29 @@ export default class PlayerTwoContainer extends PureComponent {
     render() {
         return (
             <Circle
-                x={this.state.positionX}
-                y={this.state.positionY}
-                radius={puckSize}
+                x={this.props.playerTwo.positionX}
+                y={this.props.playerTwo.positionY}
+                radius={this.props.playerTwo.puckSize}
                 fill={'red'}
                 stroke={'black'}
                 strokeWidth={3}
-                mass={this.state.mass}
-                velocityX={this.state.velocityX}
-                velocityY={this.state.velocityY}
-                frictionX={this.state.frictionX}
-                frictionY={this.state.frictionY}
-                acceleration={this.state.acceleration}
+                mass={this.props.playerTwo.mass}
+                velocityX={this.props.playerTwo.velocityX}
+                velocityY={this.props.playerTwo.velocityY}
+                frictionX={this.props.playerTwo.frictionX}
+                frictionY={this.props.playerTwo.frictionY}
+                acceleration={this.props.playerTwo.acceleration}
             />
         );
     }
 
 }
+
+const mapStateToProps = state => {
+    return {
+        playerTwo: state.playerTwo
+    }
+}
+
+
+export default connect(mapStateToProps, { movePlayerTwo , movePlayer2})(PlayerTwoContainer)

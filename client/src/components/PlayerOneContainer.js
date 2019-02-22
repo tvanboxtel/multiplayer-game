@@ -1,79 +1,64 @@
-import React, { PureComponent } from "react";
+import * as React from 'react'
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
 import { Circle } from "react-konva";
+import { movePlayerOne, movePlayer1 } from '../actions/player'
+import { connect } from 'react-redux'
 
 const keys = [],
     MIN_Y = 52,
     MAX_Y = HEIGHT - MIN_Y,
-    boardCenterX = WIDTH / 2,
-    puckSize = 52;
-
-export default class PlayerOneContainer extends PureComponent {
-    state = {
-        positionX: WIDTH / 5,
-        positionY: HEIGHT / 2,
-        mass: 15,
-        velocityX: 0,
-        velocityY: 0,
-        frictionX: 1,
-        frictionY: 1,
-        acceleration: 1
-    };
-
-     move = () => {
-
-        this.setState({ velocityX: this.state.velocityX * this.state.frictionX })
-        this.setState({ velocityY: this.state.velocityY * this.state.frictionY })
+    boardCenterX = WIDTH / 2
 
 
-        this.setState({ positionX: this.state.positionX + this.state.velocityX })
-        this.setState({ positionY: this.state.positionY + this.state.velocityY })
+class PlayerOneContainer extends React.Component {
+
+    move = () => {
+        this.props.movePlayerOne({
+            positionX: this.props.playerOne.positionX + this.props.playerOne.velocityX,
+            positionY: this.props.playerOne.positionY + this.props.playerOne.velocityY,
+            velocityX: this.props.playerOne.velocityX * this.props.playerOne.frictionX,
+            velocityY: this.props.playerOne.velocityY * this.props.playerOne.frictionY
+        })
     }
 
     moveController = (event) => {
-
         keys[event.keyCode] = true
 
         // Up
         if (keys[87]) {
-            if (this.state.positionY > 0 + puckSize) {
-                this.setState({ velocityY: this.state.velocityY - this.state.acceleration })
+            if (this.props.playerOne.positionY > 0 + this.props.playerOne.puckSize) {
+                this.props.movePlayerOne({ velocityY: this.props.playerOne.velocityY - this.props.playerOne.acceleration })
                 this.move()
-            } else {
-                this.setState({ velocityY: 0, velocityX: 0 })
+                this.mirrorMode()
             }
         }
 
         // // Down
         if (keys[83]) {
-            if (this.state.positionY < MAX_Y) {
-                this.setState({ velocityY: this.state.velocityY + this.state.acceleration })
+            if (this.props.playerOne.positionY < MAX_Y) {
+                this.props.movePlayerOne({ velocityY: this.props.playerOne.velocityY + this.props.playerOne.acceleration })
                 this.move()
-            } else {
-                this.setState({ velocityY: 0, velocityX: 0 })
+                this.mirrorMode()
             }
         }
 
         // Right
         if (keys[68]) {
-            if (this.state.positionX < boardCenterX - puckSize) {
-                this.setState({ velocityX: this.state.velocityX + this.state.acceleration })
+            if (this.props.playerOne.positionX < boardCenterX - this.props.playerOne.puckSize) {
+                this.props.movePlayerOne({ velocityX: this.props.playerOne.velocityX + this.props.playerOne.acceleration })
                 this.move()
-            } else {
-                this.setState({ velocityX: 0, velocityY: 0 })
+                this.mirrorMode()
             }
         }
 
         // Left, decrease acceleration
         if (keys[65]) {
-            if (this.state.positionX > 0 + puckSize) {
-                this.setState({ velocityX: this.state.velocityX - this.state.acceleration })
+            if (this.props.playerOne.positionX > 0 + this.props.playerOne.puckSize) {
+                this.props.movePlayerOne({ velocityX: this.props.playerOne.velocityX - this.props.playerOne.acceleration })
                 this.move()
-            } else {
-                this.setState({ velocityX: 0, velocityY: 0 })
+                this.mirrorMode()
             }
         }
-
     }
 
 
@@ -81,44 +66,53 @@ export default class PlayerOneContainer extends PureComponent {
         keys[event.keyCode] = false;
     }
 
+    mirrorMode = () => {
+        this.props.movePlayer1(this.props.playerOne.positionX, this.props.playerOne.positionY, this.props.playerOne.velocityX, this.props.playerOne.velocityY)
+    }
+
+
     // used to be ComponentWillMount
     componentDidMount() {
         window.addEventListener('keydown', this.moveController)
+        window.addEventListener('keydown', this.tester)
         window.addEventListener('keyup', this.keysReleased)
         this.animate()
+        this.mirrorMode()
     }
 
     animate = () => {
         requestAnimationFrame(this.animate)
         this.move()
     }
-    
+
     keepPlayerInsideField = () => {
+
+
         // X-axis borders
-        if (this.state.positionX > (boardCenterX - puckSize)) {    
-            this.setState({
-                positionX: boardCenterX - puckSize,
-                velocityX: -this.state.velocityX * 0.75
+        if (this.props.playerOne.positionX > (boardCenterX - this.props.playerOne.puckSize)) {
+            this.props.movePlayerOne({
+                positionX: boardCenterX - this.props.playerOne.puckSize,
+                velocityX: -this.props.playerOne.velocityX * 0.75
             })
         }
 
-        if (this.state.positionX < (0 + puckSize)) {
-            this.setState({
-                positionX: 0 + puckSize,
-                velocityX: -this.state.velocityX * 0.75
+        if (this.props.playerOne.positionX < (0 + this.props.playerOne.puckSize)) {
+            this.props.movePlayerOne({
+                positionX: 0 + this.props.playerOne.puckSize,
+                velocityX: -this.props.playerOne.velocityX * 0.75
             })
         }
         // Y-axis borders
-        if (this.state.positionY > MAX_Y) {
-            this.setState({
+        if (this.props.playerOne.positionY > MAX_Y) {
+            this.props.movePlayerOne({
                 positionY: MAX_Y,
-                velocityY: -this.state.velocityY * 0.75
+                velocityY: -this.props.playerOne.velocityY * 0.75
             })
         }
-        if (this.state.positionY < (0 + puckSize)) {
-            this.setState({
-                positionY: 0 + puckSize,
-                velocityY: -this.state.velocityY * 0.75
+        if (this.props.playerOne.positionY < (0 + this.props.playerOne.puckSize)) {
+            this.props.movePlayerOne({
+                positionY: 0 + this.props.playerOne.puckSize,
+                velocityY: -this.props.playerOne.velocityY * 0.75
             })
         }
     }
@@ -130,20 +124,28 @@ export default class PlayerOneContainer extends PureComponent {
     render() {
         return (
             <Circle
-                x={this.state.positionX}
-                y={this.state.positionY}
-                radius={puckSize}
+                x={this.props.playerOne.positionX}
+                y={this.props.playerOne.positionY}
+                radius={this.props.playerOne.puckSize}
                 fill={'blue'}
                 stroke={'black'}
                 strokeWidth={3}
-                mass={this.state.mass}
-                velocityX={this.state.velocityX}
-                velocityY={this.state.velocityY}
-                frictionX={this.state.frictionX}
-                frictionY={this.state.frictionY}
-                acceleration={this.state.acceleration}
+                mass={this.props.playerOne.mass}
+                velocityX={this.props.playerOne.velocityX}
+                velocityY={this.props.playerOne.velocityY}
+                frictionX={this.props.playerOne.frictionX}
+                frictionY={this.props.playerOne.frictionY}
+                acceleration={this.props.playerOne.acceleration}
             />
         );
     }
 
 }
+
+const mapStateToProps = state => {
+    return {
+        playerOne: state.playerOne
+    }
+}
+
+export default connect(mapStateToProps, { movePlayerOne, movePlayer1 })(PlayerOneContainer)
