@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { Circle } from "react-konva";
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
-import { movePuck, updatePuckMove, puckHitGoalOne, puckHitGoalTwo } from '../actions/puck'
+import { movePuck, updatePuckMove, puckHitGoalOne, puckHitGoalTwo, resetPuck } from '../actions/puck'
 import { connect } from 'react-redux'
 
 const
@@ -39,6 +39,12 @@ class Puck extends PureComponent {
                 velocityX: -this.props.puck.velocityX
             })
             this.scoredGoalOne(this.props.playerOne.score + 1)
+            this.resetPuckPosition(
+                this.props.puck.positionX = WIDTH / 2,
+                this.props.puck.positionY = HEIGHT / 2,
+                this.props.puck.velocityX = 0,
+                this.props.puck.velocityY = 0,
+            )
         }
         if (this.props.puck.positionX < (0 + this.props.puck.puckSize)) {
             this.props.movePuck({
@@ -46,6 +52,12 @@ class Puck extends PureComponent {
                 velocityX: -this.props.puck.velocityX
             })
             this.scoredGoalTwo(this.props.playerTwo.score + 1)
+            this.resetPuckPosition(
+                this.props.puck.positionX = WIDTH / 2,
+                this.props.puck.positionY = HEIGHT / 2,
+                this.props.puck.velocityX = 0,
+                this.props.puck.velocityY = 0,
+            )
 
         }
         // Y-axis borders
@@ -80,6 +92,10 @@ class Puck extends PureComponent {
 
     scoredGoalTwo = (score) => {
         this.props.puckHitGoalTwo(score)
+    }
+
+    resetPuckPosition = (positionX, positionY, velocityX, velocityY) => {
+        this.props.resetPuck(positionX, positionY, velocityX, velocityY)
     }
 
     rotate(positionX, positionY, sin, cos, reverse) {
@@ -182,4 +198,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, { movePuck, updatePuckMove, puckHitGoalOne, puckHitGoalTwo })(Puck)
+export default connect(mapStateToProps, { movePuck, updatePuckMove, puckHitGoalOne, puckHitGoalTwo, resetPuck })(Puck)
