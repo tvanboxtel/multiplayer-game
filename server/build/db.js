@@ -4,6 +4,7 @@ const typeorm_1 = require("typeorm");
 const DefaultNamingStrategy_1 = require("typeorm/naming-strategy/DefaultNamingStrategy");
 const StringUtils_1 = require("typeorm/util/StringUtils");
 const entity_1 = require("../src/users/entity");
+const entities_1 = require("../src/games/entities");
 class CustomNamingStrategy extends DefaultNamingStrategy_1.DefaultNamingStrategy {
     tableName(targetName, userSpecifiedName) {
         return userSpecifiedName ? userSpecifiedName : StringUtils_1.snakeCase(targetName) + 's';
@@ -22,7 +23,10 @@ exports.default = () => typeorm_1.createConnection({
     type: "postgres",
     url: process.env.DATABASE_URL || 'postgres://postgres:secret@localhost:5432/air-hockey',
     entities: [
-        entity_1.default
+        entity_1.default,
+        entities_1.Game,
+        entities_1.Player,
+        entities_1.Puck
     ],
     synchronize: true,
     logging: true,

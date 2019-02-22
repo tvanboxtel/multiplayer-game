@@ -1,11 +1,11 @@
 import React, { PureComponent } from "react";
 import { Group, Rect } from "react-konva";
 // does not resize on window size change
-export const WIDTH = window.innerWidth / 2;
-export const HEIGHT = window.innerHeight / 2;
+export const WIDTH = 950;
+export const HEIGHT = 475;
 
+const imageUrl = "https://i.imgur.com/9tllmV0.jpg"
 
-const imageUrl = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.iSZhCBEI6zB8PWdWJc_tJgHaJQ%26pid%3D15.1&f=1"
 export default class PlayingFieldContainer extends PureComponent {
 
   constructor(...args) {
@@ -22,6 +22,8 @@ export default class PlayingFieldContainer extends PureComponent {
       fillPatternImage: null
     }
   }
+
+
 
   render() {
 
@@ -41,7 +43,6 @@ export default class PlayingFieldContainer extends PureComponent {
           y={2}
           width={WIDTH - 4}
           height={HEIGHT - 4}
-          // fill="white"
           fillPatternImage={this.state.fillPatternImage}
         />
       </Group>

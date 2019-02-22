@@ -9,8 +9,24 @@ const keys = [],
     MAX_Y = HEIGHT - MIN_Y,
     boardCenterX = WIDTH / 2
 
+const paddleOneURL = 'https://i.imgur.com/2P2zPXi.png'
 
 class PlayerOneContainer extends React.Component {
+
+    constructor(...args) {
+        super(...args);
+        const image = new window.Image()
+        image.onload = () => {
+          this.setState({
+            fillPatternImage: image
+          })
+        }
+        image.src = paddleOneURL
+        this.state = {
+          color: 'green',
+          fillPatternImage: null
+        }
+      }
 
     move = () => {
         this.props.movePlayerOne({
@@ -61,7 +77,6 @@ class PlayerOneContainer extends React.Component {
         }
     }
 
-
     keysReleased = (event) => {
         keys[event.keyCode] = false;
     }
@@ -70,8 +85,6 @@ class PlayerOneContainer extends React.Component {
         this.props.movePlayer1(this.props.playerOne.positionX, this.props.playerOne.positionY, this.props.playerOne.velocityX, this.props.playerOne.velocityY)
     }
 
-
-    // used to be ComponentWillMount
     componentDidMount() {
         window.addEventListener('keydown', this.moveController)
         window.addEventListener('keydown', this.tester)
@@ -127,9 +140,11 @@ class PlayerOneContainer extends React.Component {
                 x={this.props.playerOne.positionX}
                 y={this.props.playerOne.positionY}
                 radius={this.props.playerOne.puckSize}
-                fill={'blue'}
+                fillPatternImage={this.state.fillPatternImage}
+                fillPatternOffset={{ x: 73, y: 74 }}
+                fillPatternScale={-100}
                 stroke={'black'}
-                strokeWidth={3}
+                strokeWidth={2}
                 mass={this.props.playerOne.mass}
                 velocityX={this.props.playerOne.velocityX}
                 velocityY={this.props.playerOne.velocityY}

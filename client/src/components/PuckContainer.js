@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { Circle } from "react-konva";
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
-import { movePuck, updatePuckMove } from '../actions/puck'
+import { movePuck, puckHitGoalOne, puckHitGoalTwo, resetPuck } from '../actions/puck'
 import { connect } from 'react-redux'
 
 const
@@ -23,7 +23,6 @@ class Puck extends PureComponent {
 
     componentDidMount() {
         this.animate()
-        // this.mirrorMode()
     }
 
     animate = () => {
@@ -39,12 +38,41 @@ class Puck extends PureComponent {
                 velocityX: -this.props.puck.velocityX
             })
         }
+
+        if ((this.props.puck.positionX > (MAX_X - this.props.puck.puckSize))
+            && (this.props.puck.positionY > (MAX_Y / 3) - this.props.puck.puckSize)
+            && (this.props.puck.positionY < (MAX_Y / 3 * 2) - this.props.puck.puckSize)) {
+
+            this.scoredGoalTwo(this.props.playerTwo.score + 1)
+            this.resetPuckPosition(
+                this.props.puck.positionX = WIDTH / 2,
+                this.props.puck.positionY = HEIGHT / 2,
+                this.props.puck.velocityX = 0,
+                this.props.puck.velocityY = 0,
+            )
+
+        }
+
         if (this.props.puck.positionX < (0 + this.props.puck.puckSize)) {
             this.props.movePuck({
                 positionX: 0 + this.props.puck.puckSize,
                 velocityX: -this.props.puck.velocityX
             })
         }
+
+        if ((this.props.puck.positionX < (0 + this.props.puck.puckSize))
+            && (this.props.puck.positionY > (MAX_Y / 3) - this.props.puck.puckSize)
+            && (this.props.puck.positionY < (MAX_Y / 3 * 2) - this.props.puck.puckSize)) {
+
+            this.scoredGoalOne(this.props.playerOne.score + 1)
+            this.resetPuckPosition(
+                this.props.puck.positionX = WIDTH / 2,
+                this.props.puck.positionY = HEIGHT / 2,
+                this.props.puck.velocityX = 0,
+                this.props.puck.velocityY = 0,
+            )
+        }
+
         // Y-axis borders
         if (this.props.puck.positionY > MAX_Y - this.props.puck.puckSize) {
             this.props.movePuck({
@@ -52,6 +80,7 @@ class Puck extends PureComponent {
                 velocityY: -this.props.puck.velocityY
             })
         }
+
         if (this.props.puck.positionY < (0 + this.props.puck.puckSize)) {
             this.props.movePuck({
                 positionY: 0 + this.props.puck.puckSize,
@@ -67,13 +96,20 @@ class Puck extends PureComponent {
 
     }
 
-    mirrorMode = () => {
-        this.props.updatePuckMove(this.props.puck.positionX, this.props.puck.positionY, this.props.puck.velocityX, this.props.puck.velocityY)
+    scoredGoalOne = (score) => {
+        this.props.puckHitGoalOne(score)
+    }
+
+    scoredGoalTwo = (score) => {
+        this.props.puckHitGoalTwo(score)
+    }
+
+    resetPuckPosition = (positionX, positionY, velocityX, velocityY) => {
+        this.props.resetPuck(positionX, positionY, velocityX, velocityY)
     }
 
     rotate(positionX, positionY, sin, cos, reverse) {
         return {
-
             positionX: (reverse) ? (positionX * cos + positionY * sin)
                 : (positionX * cos - positionY * sin),
 
@@ -91,15 +127,9 @@ class Puck extends PureComponent {
 
 
         if (distance < addedRadius) {
-            // this.mirrorMode()
-
-
-            // all collision logic goes here    
             let angle = Math.atan2(distanceY, distanceX),
                 sin = Math.sin(angle),
                 cos = Math.cos(angle),
-
-
 
                 positionPuck = { positionX: 0, positionY: 0 },
                 positionPlayer = this.rotate(distanceX, distanceY, sin, cos, true),
@@ -144,9 +174,9 @@ class Puck extends PureComponent {
                 x={this.props.puck.positionX}
                 y={this.props.puck.positionY}
                 radius={this.props.puck.puckSize}
-                fill={'grey'}
-                stroke={'black'}
-                strokeWidth={2}
+                fill='rgb(31,31,31)'
+                stroke='rgb(57,57,57)'
+                strokeWidth={5}
                 mass={this.props.puck.mass}
                 velocityX={this.props.puck.velocityX}
                 velocityY={this.props.puck.velocityY}
@@ -171,4 +201,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, { movePuck, updatePuckMove })(Puck)
+export default connect(mapStateToProps, { movePuck, puckHitGoalOne, puckHitGoalTwo, resetPuck })(Puck)
