@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { Circle } from "react-konva";
 import { WIDTH, HEIGHT } from "./PlayingFieldContainer";
-import { movePuck, updatePuckMove } from '../actions/puck'
+import { movePuck, updatePuckMove, puckHitGoalOne, puckHitGoalTwo } from '../actions/puck'
 import { connect } from 'react-redux'
 
 const
@@ -38,12 +38,15 @@ class Puck extends PureComponent {
                 positionX: MAX_X - this.props.puck.puckSize,
                 velocityX: -this.props.puck.velocityX
             })
+            this.scoredGoalOne(this.props.playerOne.score + 1)
         }
         if (this.props.puck.positionX < (0 + this.props.puck.puckSize)) {
             this.props.movePuck({
                 positionX: 0 + this.props.puck.puckSize,
                 velocityX: -this.props.puck.velocityX
             })
+            this.scoredGoalTwo(this.props.playerTwo.score + 1)
+
         }
         // Y-axis borders
         if (this.props.puck.positionY > MAX_Y - this.props.puck.puckSize) {
@@ -69,6 +72,14 @@ class Puck extends PureComponent {
 
     mirrorMode = () => {
         this.props.updatePuckMove(this.props.puck.positionX, this.props.puck.positionY, this.props.puck.velocityX, this.props.puck.velocityY)
+    }
+
+    scoredGoalOne = (score) => {
+        this.props.puckHitGoalOne(score)
+    }
+
+    scoredGoalTwo = (score) => {
+        this.props.puckHitGoalTwo(score)
     }
 
     rotate(positionX, positionY, sin, cos, reverse) {
@@ -171,4 +182,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, { movePuck, updatePuckMove })(Puck)
+export default connect(mapStateToProps, { movePuck, updatePuckMove, puckHitGoalOne, puckHitGoalTwo })(Puck)

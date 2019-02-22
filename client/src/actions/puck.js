@@ -1,6 +1,9 @@
 import openSocket from 'socket.io-client'
 export const MOVE_PUCK = 'MOVE_PUCK'
 export const PUCK_HAS_MOVED = 'PUCK_HAS_MOVED'
+export const PUCK_HIT_GOAL_ONE = 'PUCK_HIT_GOAL_ONE'
+export const PUCK_HIT_GOAL_TWO = 'PUCK_HIT_GOAL_TWO'
+
 const port = process.env.PORT || 'http://localhost:4000'
 const socket = openSocket(port)
 
@@ -37,5 +40,32 @@ export const updatePuckMove = (positionX, positionY, velocityX, velocityY) => (d
       velocityY
     })
 
+  })
+}
+
+
+export const puckHitGoalOne = (score) => (dispatch) => {
+  socket.emit('puckHitGoalOne', {
+    score
+  })
+
+  socket.on('updateScoreOne', (score) => {
+    dispatch({
+      type: PUCK_HIT_GOAL_ONE,
+      payload: score
+    })
+  })
+}
+
+export const puckHitGoalTwo = (score) => (dispatch) => {
+  socket.emit('puckHitGoalTwo', {
+    score
+  })
+
+  socket.on('updateScoreTwo', (score) => {
+    dispatch({
+      type: PUCK_HIT_GOAL_TWO,
+      payload: score
+    })
   })
 }
