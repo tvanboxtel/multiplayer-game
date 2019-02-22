@@ -11,20 +11,20 @@ export const PLAYER_TWO_MOVED = 'PLAYER_TWO_MOVED'
 export const MOVE_PLAYER_ONE = 'MOVE_PLAYER_ONE'
 export const MOVE_PLAYER_TWO = 'MOVE_PLAYER_TWO'
 
-export const addPlayer = name => {
-    return {
-        type: ADD_PLAYER,
-        name
-    };
-}
+// export const addPlayer = name => {
+//     return {
+//         type: ADD_PLAYER,
+//         name
+//     };
+// }
 
-export const updatePlayerScore = (index, score)  => {
-    return {
-      type: UPDATE_PLAYER_SCORE,
-      index,
-      score
-   };
- };
+// export const updatePlayerScore = (index, score)  => {
+//     return {
+//       type: UPDATE_PLAYER_SCORE,
+//       index,
+//       score
+//    };
+//  };
 
 export const movePlayer1 = (positionX, positionY, velocityX, velocityY) => (dispatch) => {
     socket.emit('movePlayer1', {

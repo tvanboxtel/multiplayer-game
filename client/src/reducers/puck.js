@@ -11,7 +11,8 @@ const puck = {
     frictionX: 1,
     frictionY: 1,
     acceleration: 1,
-    puckSize: 25
+    puckSize: 25,
+    // score: 0
 };
 
 export default (state = puck, action = {}) => {
@@ -22,7 +23,7 @@ export default (state = puck, action = {}) => {
                 ...action.payload
             }
         case PUCK_HAS_MOVED:
-        console.log(action.payload)
+            console.log(action.payload)
             return {
                 ...state,
                 // ...action.payload

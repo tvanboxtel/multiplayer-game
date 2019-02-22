@@ -9,14 +9,15 @@ class ScoreboardContainer extends PureComponent {
 
 
     render() {
-        console.log(this.props.playerOne.positionX)
+        // console.log(this.props.playerOne.score)
+        // debugger
         return (
             <Group>
             <Text
                 x={120}
                 y={60}
                 fontSize={20}
-                text={this.props.playerOne.positionX}
+                text={this.props.playerOne.score}
                 align="middle"
                 verticalAlign='middle'
                 justify='center'
@@ -26,7 +27,7 @@ class ScoreboardContainer extends PureComponent {
                 x={320}
                 y={60}
                 fontSize={20}
-                text={this.props.playerTwo.positionX}
+                text={this.props.playerTwo.score}
                 justify='center'
                 width={100}
             />
