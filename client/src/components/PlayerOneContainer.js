@@ -77,7 +77,6 @@ class PlayerOneContainer extends React.Component {
         }
     }
 
-
     keysReleased = (event) => {
         keys[event.keyCode] = false;
     }
@@ -86,8 +85,6 @@ class PlayerOneContainer extends React.Component {
         this.props.movePlayer1(this.props.playerOne.positionX, this.props.playerOne.positionY, this.props.playerOne.velocityX, this.props.playerOne.velocityY)
     }
 
-
-    // used to be ComponentWillMount
     componentDidMount() {
         window.addEventListener('keydown', this.moveController)
         window.addEventListener('keydown', this.tester)

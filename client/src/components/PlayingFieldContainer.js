@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
-import { Group, Rect, Text } from "react-konva";
-import Konva from 'konva'
+import { Group, Rect } from "react-konva";
 // does not resize on window size change
 export const WIDTH = 950;
 export const HEIGHT = 475;

@@ -10,6 +10,7 @@ class ScoreboardContainer extends PureComponent {
         return (
             <Group>
             <Text
+
                 x={108}
                 y={55}
                 fontSize={30}
@@ -22,12 +23,14 @@ class ScoreboardContainer extends PureComponent {
                 width={100}
             />
             <Text
+
                 x={362}
                 y={55}
                 fontSize={30}
                 fill='white'
                 fontFamily='Russo One'
                 text={this.props.playerTwo.score}
+
                 justify='center'
                 width={100}
             />
@@ -41,9 +44,11 @@ class ScoreboardContainer extends PureComponent {
 
 
 const mapStateToProps = state => {
+    // console.log(state)
     return {
-        playerOne: state.playerOne,
-        playerTwo: state.playerTwo
+        playerOneScore: state.playerOne.score,
+        
+        playerTwoScore: state.playerTwo.score
     }
 }
 
