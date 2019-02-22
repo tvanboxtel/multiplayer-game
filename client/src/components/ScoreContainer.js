@@ -10,7 +10,7 @@ class ScoreboardContainer extends PureComponent {
         return (
             <Group>
             <Text
-                x={110}
+                x={108}
                 y={55}
                 fontSize={30}
                 fill='white'
@@ -22,7 +22,7 @@ class ScoreboardContainer extends PureComponent {
                 width={100}
             />
             <Text
-                x={363}
+                x={362}
                 y={55}
                 fontSize={30}
                 fill='white'
