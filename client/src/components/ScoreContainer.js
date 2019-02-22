@@ -10,20 +10,27 @@ class ScoreboardContainer extends PureComponent {
         return (
             <Group>
             <Text
-                x={120}
-                y={60}
-                fontSize={20}
-                text={this.props.playerOneScore}
+
+                x={108}
+                y={55}
+                fontSize={30}
+                fill='white'
+                fontFamily='Russo One'
+                text={this.props.playerOne.score}
                 align="middle"
                 verticalAlign='middle'
                 justify='center'
                 width={100}
             />
             <Text
-                x={320}
-                y={60}
-                fontSize={20}
-                text={this.props.playerTwoScore}
+
+                x={362}
+                y={55}
+                fontSize={30}
+                fill='white'
+                fontFamily='Russo One'
+                text={this.props.playerTwo.score}
+
                 justify='center'
                 width={100}
             />

@@ -2,9 +2,24 @@ import React, { PureComponent } from "react";
 import { connect } from 'react-redux'
 import { Rect, Group, Text } from "react-konva";
 
+const scoreURL = 'https://i.imgur.com/fizcCwD.jpg'
 
 class ScoreboardContainer extends PureComponent {
 
+    constructor(...args) {
+        super(...args);
+        const image = new window.Image()
+        image.onload = () => {
+          this.setState({
+            fillPatternImage: image
+          })
+        }
+        image.src = scoreURL
+        this.state = {
+          color: 'green',
+          fillPatternImage: null
+        }
+      }
 
     render() {
         // console.log(this.props.playerOne.positionX)
@@ -16,24 +31,8 @@ class ScoreboardContainer extends PureComponent {
                     stroke='black'
                     strokeWidth={2}
                     width={500}
-                    height={100}
-                    fill="blue"
-                />
-                <Text
-                    x={120}
-                    y={10}
-                    fontSize={20}
-                    text='Player 1 Score:'
-                    justify='center'
-                    width={100}
-                />
-                <Text
-                    x={320}
-                    y={10}
-                    fontSize={20}
-                    text='Player 2 Score:'
-                    justify='center'
-                    width={100}
+                    height={150}
+                    fillPatternImage={this.state.fillPatternImage}
                 />
             </Group>
         );
