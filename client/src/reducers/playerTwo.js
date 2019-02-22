@@ -11,7 +11,10 @@ const playerTwo = {
     frictionX: 1,
     frictionY: 1,
     acceleration: 1,
-    puckSize: 52
+    puckSize: 52,
+    score: '0'
+    // Needs to be a string when null, can be a number when updated
+
 
 };
 
