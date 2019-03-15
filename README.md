@@ -26,10 +26,10 @@ This is a multiplayer game I made in a partner project during my 8th week of lea
 
 #### Click links to view some samples in this project
 
-- **[react](multiplayer-game/client/src/components/PlayerOneContainer.js)**  
-- **[redux](multiplayer-game/client/src/reducers/puck.js)**  
-- **[redux-thunk](multiplayer-game/client/src/actions/player.js)**  
-- **[TypeORM (Pair programmed)](multiplayer-game/server/src/users/controller.ts)**  
+- **[react](/client/src/components/PlayerOneContainer.js)**  
+- **[redux](client/src/reducers/puck.js)**  
+- **[redux-thunk](/client/src/actions/player.js)**  
+- **[TypeORM (Pair programmed)](/server/src/users/controller.ts)**  
 
 ## Goals for this project:
 
