@@ -3,7 +3,7 @@
 
 ## [Check out the deployed version here!](https://shrekball.netlify.com)
 ## What this project is about
-![](https://giant.gfycat.com/WearyDentalIrishsetter.gif)
+![](https://gfycat.com/WearyDentalIrishsetter.gif)
 
 
 This is a multiplayer game I made in a partner project during my 8th week of learning. The project was a collaboration with **[Charles Callaghan](https://github.com/charlescallaghan/)**, and we did a lot of pair programming together.
