@@ -43,6 +43,8 @@ This is a multiplayer game I made in a partner project during my 8th week of lea
 #### Click links to view the pull requests 
 
 - **[Feature/redux collision physics](https://github.com/Tevabo/multiplayer-game/pull/22)**
+- **[Feature/smoothAnimations](https://github.com/Tevabo/multiplayer-game/pull/8)**
+- **[Fix/reduxActions](https://github.com/Tevabo/multiplayer-game/pull/20)** (Pair programmed)
 
 
 ## My git workflow
