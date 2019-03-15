@@ -1,4 +1,4 @@
-:japanese_ogre: # Shrekball: An online multiplayer airhockey game :japanese_ogre:
+# :japanese_ogre: Shrekball: An online multiplayer airhockey game :japanese_ogre:
 
 
 ## [Check out the deployed version here!](https://shrekball.netlify.com)
