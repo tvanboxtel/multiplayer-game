@@ -6,7 +6,7 @@
 ![](https://giant.gfycat.com/WearyDentalIrishsetter.gif)
 
 
-This is a multiplayer game I made in a partner project during my 8th week of learning. The project was a collaboration with **[Charles Callaghan](https://github.com/charlescallaghan/)**, and we did a lot of pair programming together.
+This is a multiplayer game I made in a partner project during my 7th week of learning. The project was a collaboration with **[Charles Callaghan](https://github.com/charlescallaghan/)**, and we did a lot of pair programming together.
 
 The game is actually just airhockey, but there used to be a picture of **[Shrek](https://www.imdb.com/title/tt0126029/)** as our background. It started as a joke, but we kept it because it's catchy!
 
